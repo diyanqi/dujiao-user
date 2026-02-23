@@ -28,6 +28,20 @@
 
 <body>
   <div id="app"></div>
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search)
+      var spaPath = params.get('spa_path')
+      if (!spaPath) return
+
+      var decodedPath = decodeURIComponent(spaPath)
+      if (!decodedPath.startsWith('/')) {
+        decodedPath = '/' + decodedPath
+      }
+
+      window.history.replaceState(null, '', decodedPath)
+    })()
+  </script>
   <script type="module" data-cfasync="false" src="/src/main.ts"></script>
 </body>
 

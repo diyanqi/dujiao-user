@@ -5,6 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex,follow" />
   <title>404 | 米米小卖部</title>
+  <script>
+    (function () {
+      var path = window.location.pathname + window.location.search + window.location.hash
+      var redirectPath = '/?spa_path=' + encodeURIComponent(path)
+      window.location.replace(redirectPath)
+    })()
+  </script>
   <style>
     :root { color-scheme: light dark; }
     body {
