@@ -586,7 +586,7 @@ const loadProduct = async () => {
 const debouncedLoadProduct = debounceAsync(loadProduct, 300)
 
 useHead({
-  title: () => product.value ? getLocalizedText(product.value.title) : '',
+  title: () => product.value ? getLocalizedText(product.value.title) : undefined,
   meta: () => {
     if (!product.value) return []
     const seoMeta = product.value.seo_meta || {}

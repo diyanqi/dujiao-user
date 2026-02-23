@@ -145,6 +145,11 @@ const router = createRouter({
             component: () => import('../views/auth/Forgot.vue'),
             meta: { userGuest: true }
         },
+        {
+            path: '/:pathMatch(.*)*',
+            name: 'not-found',
+            component: () => import('../views/NotFound.vue'),
+        },
     ],
 })
 

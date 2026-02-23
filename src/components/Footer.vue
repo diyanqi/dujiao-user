@@ -74,7 +74,7 @@
         <div class="space-y-1 text-center md:text-left">
           <p>&copy; {{ currentYear }} {{ brandSiteName }}. {{ t('footer.rights') }}</p>
           <p class="flex items-center justify-center gap-1 md:justify-start">
-            <span>Open Source: Dujiao-Next ·</span>
+            <span>改编自开源项目 Dujiao-Next ·</span>
             <a
               href="https://github.com/dujiao-next"
               target="_blank"
@@ -109,7 +109,7 @@ const config = computed(() => appStore.config)
 
 const brandSiteName = computed(() => {
   const siteName = config.value?.brand?.site_name
-  return typeof siteName === 'string' && siteName.trim() ? siteName.trim() : 'Dujiao-Next'
+  return typeof siteName === 'string' && siteName.trim() ? siteName.trim() : '米米小卖部'
 })
 
 const brandInitial = computed(() => {

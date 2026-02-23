@@ -15,7 +15,7 @@
 
       <div class="theme-auth-card">
         <div class="mb-8 text-center">
-          <p class="text-xs font-semibold uppercase tracking-[0.22em] theme-text-accent">Dujiao-Next · D&N</p>
+          <p class="text-xs font-semibold uppercase tracking-[0.22em] theme-text-accent">米米小卖部 · mmi.zone</p>
           <h1 class="mt-3 text-3xl font-black theme-text-primary">{{ t('auth.login.title') }}</h1>
           <p class="mt-2 text-sm theme-text-muted">{{ t('auth.login.subtitle') }}</p>
         </div>
@@ -162,7 +162,7 @@ const turnstileSiteKey = computed(() => String(captchaConfig.value?.turnstile?.s
 const telegramConfig = computed(() => appStore.config?.telegram_auth || null)
 const telegramBotUsername = computed(() => String(telegramConfig.value?.bot_username || '').trim())
 const telegramEnabled = computed(() => !!telegramConfig.value?.enabled && telegramBotUsername.value !== '')
-const telegramCallbackName = '__dujiaoUserTelegramLogin'
+const telegramCallbackName = '__mmiUserTelegramLogin'
 
 const getCaptchaPayload = (): CaptchaPayload | undefined => {
   if (!loginCaptchaEnabled.value) return undefined
