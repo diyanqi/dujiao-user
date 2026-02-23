@@ -18,8 +18,7 @@ export interface ApiResponse<T = any> {
 }
 
 // API 基础配置
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || ''
-// const API_BASE_URL = 'http://localhost:8080' // Original backup
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://api.mmi.zone'
 const API_PREFIX = '/api/v1'
 
 const api = axios.create({
