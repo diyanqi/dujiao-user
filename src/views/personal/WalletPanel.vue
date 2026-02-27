@@ -231,7 +231,7 @@ import { computed, onMounted, onUnmounted, reactive, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { walletAPI } from '../../api'
 import { useAppStore } from '../../stores/app'
-import { pageAlertClass, type PageAlert } from '../../utils/alerts'
+import { type PageAlert } from '../../utils/alerts'
 import { amountToCents } from '../../utils/money'
 import QRCode from 'qrcode'
 
