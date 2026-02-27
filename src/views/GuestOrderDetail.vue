@@ -12,7 +12,7 @@
       </div>
 
       <div v-if="showAuthForm"
-        class="theme-panel rounded-2xl p-6 mb-6">
+        class="theme-panel rounded-2xl p-6 mb-6 hover-scale">
         <h2 class="text-lg font-bold mb-2">{{ t('guestOrderDetail.authTitle') }}</h2>
         <p class="text-xs theme-text-muted mb-4">{{ t('guestOrderDetail.authHint') }}</p>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -43,12 +43,12 @@
       </div>
 
       <div v-else-if="!order && !showAuthForm"
-        class="theme-panel rounded-2xl p-12 text-center">
+        class="theme-panel rounded-2xl p-12 text-center hover-scale">
         <p class="theme-text-muted">{{ t('guestOrderDetail.notFound') }}</p>
       </div>
 
       <div v-else class="space-y-6">
-        <div class="theme-panel rounded-2xl p-6">
+        <div class="theme-panel rounded-2xl p-6 hover-scale">
           <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
               <div class="text-xs uppercase tracking-wider theme-text-muted">{{ t('orders.orderNo') }}</div>
@@ -72,7 +72,7 @@
           </div>
         </div>
 
-        <div class="theme-panel rounded-2xl p-6">
+        <div class="theme-panel rounded-2xl p-6 hover-scale">
           <h2 class="text-lg font-bold mb-4">{{ t('orderDetail.amountTitle') }}</h2>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
             <div class="theme-surface-soft border rounded-xl p-4">
@@ -93,7 +93,7 @@
           </div>
         </div>
 
-        <div v-if="showTimeCard" class="theme-panel rounded-2xl p-6">
+        <div v-if="showTimeCard" class="theme-panel rounded-2xl p-6 hover-scale">
           <h2 class="text-lg font-bold mb-4">{{ t('orderDetail.timeTitle') }}</h2>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
             <div class="theme-surface-soft border rounded-xl p-4">
@@ -115,7 +115,7 @@
           </div>
         </div>
 
-        <div class="theme-panel rounded-2xl p-6">
+        <div class="theme-panel rounded-2xl p-6 hover-scale">
           <h2 class="text-lg font-bold mb-4">{{ t('orderDetail.itemsTitle') }}</h2>
           <div v-if="order.items && order.items.length > 0" class="space-y-4">
             <div v-for="item in order.items" :key="item.id"
@@ -159,7 +159,7 @@
         </div>
 
         <div v-if="order.children && order.children.length > 0"
-          class="theme-panel rounded-2xl p-6">
+          class="theme-panel rounded-2xl p-6 hover-scale">
           <h2 class="text-lg font-bold mb-4">{{ t('orderDetail.childOrdersTitle') }}</h2>
           <div class="space-y-4">
             <div v-for="child in order.children" :key="child.id"
@@ -244,7 +244,7 @@
         </div>
 
         <div v-if="order.fulfillment"
-          class="theme-panel rounded-2xl p-6">
+          class="theme-panel rounded-2xl p-6 hover-scale">
           <h2 class="text-lg font-bold mb-4">{{ t('orderDetail.fulfillmentTitle') }}</h2>
           <div class="text-sm theme-text-muted">{{ t('orderDetail.fulfillmentType') }}：{{
             fulfillmentTypeLabelText(order.fulfillment.type) }}</div>

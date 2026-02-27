@@ -94,6 +94,21 @@ body {
   background-position: center center;
 }
 
+a[href],
+button:not(:disabled),
+input[type='button']:not(:disabled),
+input[type='submit']:not(:disabled),
+summary,
+[role='button'] {
+  cursor: pointer;
+}
+
+button:disabled,
+input:disabled,
+[aria-disabled='true'] {
+  cursor: not-allowed;
+}
+
 @layer base {
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Orbitron', sans-serif;
@@ -1040,3 +1055,37 @@ body {
     border-color: var(--ui-border-strong) !important;
   }
 }
+
+/* Page Transitions */
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.page-enter-from {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.page-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+/* Hover Effects */
+.hover-scale {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.hover-scale:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--ui-shadow-2);
+}
+
+.hover-glow {
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.hover-glow:hover {
+  box-shadow: 0 0 15px var(--ui-accent-soft);
+  border-color: var(--ui-accent);
+}
+

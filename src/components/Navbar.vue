@@ -10,7 +10,7 @@
       <!-- Desktop Menu -->
       <div class="hidden md:flex items-center space-x-4">
         <router-link v-for="item in menuItems" :key="item.path" :to="item.path"
-          class="theme-nav-link text-sm relative group overflow-hidden font-bold uppercase tracking-widest font-mono"
+          class="theme-nav-link text-sm relative group overflow-hidden font-bold uppercase tracking-widest font-mono hover-scale"
           active-class="theme-nav-link-active">
           <span class="relative z-10">{{ t(item.label) }}</span>
         </router-link>
@@ -19,7 +19,7 @@
       <!-- Right Side Actions -->
       <div class="flex items-center space-x-2 md:space-x-4">
         <router-link to="/cart"
-          class="theme-nav-link relative gap-2 px-3 py-2 font-bold uppercase tracking-widest font-mono">
+          class="theme-nav-link relative gap-2 px-3 py-2 font-bold uppercase tracking-widest font-mono hover-scale">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.3 2.6a1 1 0 00.9 1.4H19M7 13l.4 2M10 21a1 1 0 100-2 1 1 0 000 2zm8 1a1 1 0 100-2 1 1 0 000 2z" />
@@ -32,24 +32,24 @@
         </router-link>
 
         <router-link v-if="!userAuthStore.isAuthenticated" to="/guest/orders"
-          class="hidden md:inline-flex theme-nav-link font-bold uppercase tracking-widest font-mono text-sm">
+          class="hidden md:inline-flex theme-nav-link font-bold uppercase tracking-widest font-mono text-sm hover-scale">
           {{ t('navbar.guestOrders') }}
         </router-link>
         <router-link v-if="!userAuthStore.isAuthenticated" to="/auth/login"
-          class="hidden md:inline-flex theme-nav-link font-bold uppercase tracking-widest font-mono text-sm">
+          class="hidden md:inline-flex theme-nav-link font-bold uppercase tracking-widest font-mono text-sm hover-scale">
           {{ t('navbar.login') }}
         </router-link>
         <router-link v-if="userAuthStore.isAuthenticated" to="/me"
-          class="hidden md:inline-flex theme-nav-link font-bold uppercase tracking-widest font-mono text-sm">
+          class="hidden md:inline-flex theme-nav-link font-bold uppercase tracking-widest font-mono text-sm hover-scale">
           {{ t('navbar.personalCenter') }}
         </router-link>
         <button v-if="userAuthStore.isAuthenticated" @click="userAuthStore.logout()"
-          class="hidden md:inline-flex px-4 py-2 border-2 border-[var(--ui-danger)] text-[var(--ui-danger)] hover:bg-[var(--ui-danger)] hover:text-[var(--ui-text-on-accent)] transition-all font-bold uppercase tracking-widest font-mono text-sm shadow-[4px_4px_0px_var(--ui-danger)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none">
+          class="hidden md:inline-flex px-4 py-2 border-2 border-[var(--ui-danger)] text-[var(--ui-danger)] hover:bg-[var(--ui-danger)] hover:text-[var(--ui-text-on-accent)] transition-all font-bold uppercase tracking-widest font-mono text-sm shadow-[4px_4px_0px_var(--ui-danger)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none hover-scale">
           {{ t('navbar.logout') }}
         </button>
         <!-- Theme Switcher -->
         <button @click="cycleThemeMode"
-          class="theme-nav-link p-2 gap-2"
+          class="theme-nav-link p-2 gap-2 hover-scale"
           :title="`${t('navbar.selectTheme')}：${currentThemeLabel}`">
           <ComputerDesktopIcon v-if="themeMode === 'system'" class="w-5 h-5" />
           <SunIcon v-else-if="themeMode === 'light'" class="w-5 h-5" />
@@ -60,7 +60,7 @@
         <!-- Language Switcher -->
         <div class="relative group/lang lang-switcher">
           <button @click="toggleLangMenu"
-            class="theme-nav-link space-x-2 font-bold uppercase tracking-widest font-mono">
+            class="theme-nav-link space-x-2 font-bold uppercase tracking-widest font-mono hover-scale">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />

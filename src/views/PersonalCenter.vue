@@ -1,7 +1,7 @@
 <template>
   <div class="relative min-h-screen overflow-hidden theme-page pt-24 pb-16">
     <div class="container relative z-10 mx-auto px-4">
-      <header class="mb-8 border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] p-8 shadow-[8px_8px_0px_var(--ui-accent)]">
+      <header class="mb-8 border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] p-8 shadow-[8px_8px_0px_var(--ui-accent)] hover-scale">
         <div class="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
           <div>
             <p class="text-xs font-black uppercase tracking-widest text-[var(--ui-accent)] font-mono">
@@ -91,7 +91,7 @@
           </div>
 
           <template v-if="currentSection === 'overview'">
-            <div class="border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] p-8 shadow-[8px_8px_0px_var(--ui-accent)]">
+            <div class="border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] p-8 shadow-[8px_8px_0px_var(--ui-accent)] hover-scale">
               <div class="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
                 <div class="flex items-center gap-6">
                   <div class="flex h-16 w-16 items-center justify-center border-2 border-[var(--ui-accent)] bg-[var(--ui-accent-soft)] text-2xl font-black text-[var(--ui-accent)] shadow-[4px_4px_0px_var(--ui-accent)]">
@@ -109,7 +109,7 @@
               </div>
             </div>
 
-            <div class="border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] p-8 shadow-[8px_8px_0px_var(--ui-accent)]">
+            <div class="border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] p-8 shadow-[8px_8px_0px_var(--ui-accent)] hover-scale">
               <div class="mb-6 flex flex-wrap items-center justify-between gap-4 border-b-2 border-[var(--ui-border)] pb-4">
                 <h3 class="text-xl font-black text-[var(--ui-accent)] uppercase tracking-widest font-mono">{{ t('personalCenter.overview.recentOrdersTitle') }}</h3>
                 <router-link
@@ -136,7 +136,7 @@
                 <div
                   v-for="order in userProfileStore.recentOrders"
                   :key="order.order_no || order.id"
-                  class="border-2 border-[var(--ui-border)] bg-[var(--ui-bg-soft)] px-6 py-4 transition-all hover:-translate-y-1 hover:shadow-[4px_4px_0px_var(--ui-accent)] hover:border-[var(--ui-accent)]"
+                  class="border-2 border-[var(--ui-border)] bg-[var(--ui-bg-soft)] px-6 py-4 transition-all hover:-translate-y-1 hover:shadow-[4px_4px_0px_var(--ui-accent)] hover:border-[var(--ui-accent)] hover-scale"
                 >
                   <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <div>

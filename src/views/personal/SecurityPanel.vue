@@ -1,7 +1,7 @@
 <template>
   <div class="space-y-6">
     <!-- Email Security Card -->
-    <div class="border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] p-8 shadow-[8px_8px_0px_var(--ui-accent)]">
+    <div class="border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] p-8 shadow-[8px_8px_0px_var(--ui-accent)] hover-scale">
       <div class="mb-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between border-b-2 border-[var(--ui-border)] pb-4">
         <div>
           <h2 class="text-2xl font-black text-[var(--ui-accent)] uppercase tracking-widest font-mono">{{ t('personalCenter.security.title') }}</h2>

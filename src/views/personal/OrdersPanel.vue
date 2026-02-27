@@ -22,19 +22,19 @@
     </div>
 
     <div class="grid grid-cols-2 gap-4 lg:grid-cols-4">
-      <div class="border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] p-6 shadow-[4px_4px_0px_var(--ui-accent)]">
+      <div class="border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] p-6 shadow-[4px_4px_0px_var(--ui-accent)] hover-scale">
         <div class="text-xs font-black uppercase tracking-widest text-[var(--ui-text-muted)] font-mono">{{ t('orders.stats.totalMatched') }}</div>
         <div class="mt-3 text-3xl font-black text-[var(--ui-text-primary)] font-mono">{{ pagination.total }}</div>
       </div>
-      <div class="border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] p-6 shadow-[4px_4px_0px_var(--ui-accent)]">
+      <div class="border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] p-6 shadow-[4px_4px_0px_var(--ui-accent)] hover-scale">
         <div class="text-xs font-black uppercase tracking-widest text-[var(--ui-text-muted)] font-mono">{{ t('orders.stats.currentPage') }}</div>
         <div class="mt-3 text-3xl font-black text-[var(--ui-text-primary)] font-mono">{{ orders.length }}</div>
       </div>
-      <div class="border-2 border-[var(--ui-warning)] bg-[var(--ui-warning-soft)] p-6 shadow-[4px_4px_0px_var(--ui-warning)]">
+      <div class="border-2 border-[var(--ui-warning)] bg-[var(--ui-warning-soft)] p-6 shadow-[4px_4px_0px_var(--ui-warning)] hover-scale">
         <div class="text-xs font-black uppercase tracking-widest text-[var(--ui-warning)] font-mono">{{ t('orders.stats.pendingPayment') }}</div>
         <div class="mt-3 text-3xl font-black text-[var(--ui-warning)] font-mono">{{ pendingPaymentCount }}</div>
       </div>
-      <div class="border-2 border-[var(--ui-success)] bg-[var(--ui-success-soft)] p-6 shadow-[4px_4px_0px_var(--ui-success)]">
+      <div class="border-2 border-[var(--ui-success)] bg-[var(--ui-success-soft)] p-6 shadow-[4px_4px_0px_var(--ui-success)] hover-scale">
         <div class="text-xs font-black uppercase tracking-widest text-[var(--ui-success)] font-mono">{{ t('orders.stats.finished') }}</div>
         <div class="mt-3 text-3xl font-black text-[var(--ui-success)] font-mono">{{ finishedCount }}</div>
       </div>
@@ -119,7 +119,7 @@
       <div
         v-for="order in orders"
         :key="order.order_no || order.id"
-        class="border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] p-6 shadow-[8px_8px_0px_var(--ui-accent)] transition-transform hover:-translate-y-1 hover:shadow-[12px_12px_0px_var(--ui-accent)]"
+        class="border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] p-6 shadow-[8px_8px_0px_var(--ui-accent)] transition-transform hover:-translate-y-1 hover:shadow-[12px_12px_0px_var(--ui-accent)] hover-scale"
       >
         <div class="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
           <div>

@@ -43,7 +43,7 @@
 
       <div v-else class="space-y-4">
         <div v-for="order in orders" :key="order.order_no || order.id"
-          class="theme-panel rounded-2xl p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          class="theme-panel rounded-2xl p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4 hover-scale">
           <div>
             <div class="text-xs uppercase tracking-wider theme-text-muted">{{ t('orders.orderNo') }}：{{ order.order_no }}</div>
             <div class="text-lg font-bold theme-text-primary mt-1">{{ formatMoney(order.total_amount,

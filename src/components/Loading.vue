@@ -22,7 +22,7 @@
         <!-- Text -->
         <div class="flex flex-col items-center gap-2">
           <div class="text-xl font-bold tracking-[0.2em] theme-text-primary animate-pulse">
-            LOADING
+            {{ t('common.loading') }}
           </div>
           <div class="flex gap-1 h-1">
             <div class="w-1 h-1 bg-current theme-text-muted rounded-full animate-bounce delay-100"></div>
@@ -36,6 +36,10 @@
 </template>
 
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+
 defineProps<{
   loading: boolean
 }>()

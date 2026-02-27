@@ -53,7 +53,7 @@
               <!-- Thumbnail Gallery -->
               <div v-if="images.length > 1" class="grid grid-cols-5 gap-4 relative z-10">
                 <div v-for="(image, index) in images" :key="index" @click="currentImage = image"
-                  class="cursor-pointer overflow-hidden border-2 transition-all duration-300 aspect-w-1 aspect-h-1"
+                  class="cursor-pointer overflow-hidden border-2 transition-all duration-300 aspect-w-1 aspect-h-1 hover-scale"
                   :class="currentImage === image ? 'border-[var(--ui-accent)] shadow-[2px_2px_0px_var(--ui-accent)] opacity-100' : 'border-[var(--ui-border)] opacity-60 hover:opacity-100 hover:border-[var(--ui-accent)]'">
                   <img :src="image" :alt="`Image ${index + 1}`" class="w-full h-full object-cover mix-blend-luminosity hover:mix-blend-normal" />
                 </div>
@@ -166,7 +166,7 @@
                       v-for="sku in activeSkus"
                       :key="sku.id"
                       type="button"
-                      class="flex flex-col items-start border-2 px-4 py-3 text-sm transition-all duration-300"
+                      class="flex flex-col items-start border-2 px-4 py-3 text-sm transition-all duration-300 hover-scale"
                       :class="[
                         normalizeSkuId(sku.id) === selectedSkuId ? 'border-[var(--ui-accent)] bg-[var(--ui-accent-soft)] text-[var(--ui-accent)] shadow-[4px_4px_0px_var(--ui-accent)] translate-x-1' : 'border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] text-[var(--ui-text-secondary)] hover:border-[var(--ui-accent)] hover:text-[var(--ui-accent)]',
                         isSkuPurchasable(sku) ? '' : 'cursor-not-allowed opacity-50 border-dashed',
@@ -245,7 +245,7 @@
         <!-- Back Button -->
         <div class="mb-12 text-center">
           <router-link to="/products"
-            class="inline-flex items-center space-x-3 text-[var(--ui-text-muted)] hover:text-[var(--ui-accent)] transition-colors font-bold uppercase tracking-widest font-mono">
+            class="inline-flex items-center space-x-3 text-[var(--ui-text-muted)] hover:text-[var(--ui-accent)] transition-colors font-bold uppercase tracking-widest font-mono hover-scale">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
             </svg>

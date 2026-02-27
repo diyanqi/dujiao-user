@@ -1,7 +1,7 @@
 <template>
   <div class="space-y-6">
     <!-- Balance Overview Card -->
-    <div class="border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] p-8 shadow-[8px_8px_0px_var(--ui-accent)]">
+    <div class="border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] p-8 shadow-[8px_8px_0px_var(--ui-accent)] hover-scale">
       <div class="mb-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between border-b-2 border-[var(--ui-border)] pb-4">
         <div>
           <h2 class="text-2xl font-black text-[var(--ui-accent)] uppercase tracking-widest font-mono">{{ t('personalCenter.wallet.title') }}</h2>
@@ -35,7 +35,7 @@
     </div>
 
     <!-- Recharge Card -->
-    <div class="border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] p-8 shadow-[8px_8px_0px_var(--ui-border)]">
+    <div class="border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] p-8 shadow-[8px_8px_0px_var(--ui-border)] hover-scale">
       <div class="mb-6 border-b-2 border-[var(--ui-border)] pb-4">
         <h3 class="text-lg font-black text-[var(--ui-text-primary)] uppercase tracking-widest font-mono">{{ t('personalCenter.wallet.rechargeTitle') }}</h3>
         <p class="mt-2 text-sm font-bold text-[var(--ui-text-muted)] font-mono">{{ t('personalCenter.wallet.rechargeSubtitle') }}</p>
@@ -89,7 +89,7 @@
     </div>
 
     <!-- Payment Info Card -->
-    <div v-if="currentRecharge && currentRechargePayment" class="border-2 border-[var(--ui-accent)] bg-[var(--ui-bg-elevated)] p-8 shadow-[8px_8px_0px_var(--ui-accent)]">
+    <div v-if="currentRecharge && currentRechargePayment" class="border-2 border-[var(--ui-accent)] bg-[var(--ui-bg-elevated)] p-8 shadow-[8px_8px_0px_var(--ui-accent)] hover-scale">
       <div class="mb-6 border-b-2 border-[var(--ui-border)] pb-4">
         <h3 class="text-lg font-black text-[var(--ui-accent)] uppercase tracking-widest font-mono">{{ t('personalCenter.wallet.paymentInfoTitle') }}</h3>
       </div>
@@ -152,7 +152,7 @@
     </div>
 
     <!-- Transaction History Card -->
-    <div class="border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] p-8 shadow-[8px_8px_0px_var(--ui-border)]">
+    <div class="border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] p-8 shadow-[8px_8px_0px_var(--ui-border)] hover-scale">
       <div class="mb-6 flex items-center justify-between border-b-2 border-[var(--ui-border)] pb-4">
         <h3 class="text-lg font-black text-[var(--ui-text-primary)] uppercase tracking-widest font-mono">{{ t('personalCenter.wallet.detailTitle') }}</h3>
         <button

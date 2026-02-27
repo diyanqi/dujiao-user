@@ -45,7 +45,7 @@
               <div
                 v-for="item in cartItems"
                 :key="cartItemKey(item)"
-                class="border-2 p-4 transition-all"
+                class="border-2 p-4 transition-all hover-scale"
                 :class="itemStockExceeded(item)
                   ? 'border-[var(--ui-warning)] bg-[var(--ui-warning-soft)]'
                   : 'border-[var(--ui-border)] bg-[var(--ui-bg-soft)]'"

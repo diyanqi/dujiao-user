@@ -52,32 +52,32 @@
         <div class="theme-panel p-6">
           <h2 class="text-lg font-black font-mono uppercase tracking-widest mb-4">{{ t('orderDetail.amountTitle') }}</h2>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-            <div class="theme-surface-soft border-2 border-[var(--ui-border)] p-4">
+            <div class="theme-surface-soft border-2 border-[var(--ui-border)] p-4 hover-scale">
               <div class="text-xs font-black uppercase tracking-wider font-mono theme-text-muted">{{ t('orderDetail.amountOriginal') }}</div>
               <div class="theme-text-primary font-mono font-black mt-1">{{ formatMoney(order.original_amount,
                 order.currency) }}</div>
             </div>
-            <div class="theme-surface-soft border-2 border-[var(--ui-border)] p-4">
+            <div class="theme-surface-soft border-2 border-[var(--ui-border)] p-4 hover-scale">
               <div class="text-xs font-black uppercase tracking-wider font-mono theme-text-muted">{{ t('orderDetail.amountDiscount') }}</div>
               <div class="theme-text-primary font-mono font-black mt-1">{{ formatMoney(order.discount_amount,
                 order.currency) }}</div>
             </div>
-            <div class="theme-surface-soft border-2 border-[var(--ui-border)] p-4">
+            <div class="theme-surface-soft border-2 border-[var(--ui-border)] p-4 hover-scale">
               <div class="text-xs font-black uppercase tracking-wider font-mono theme-text-muted">{{ t('orderDetail.amountTotal') }}</div>
               <div class="theme-text-primary font-mono font-black mt-1">{{ formatMoney(order.total_amount,
                 order.currency) }}</div>
             </div>
-            <div v-if="hasAmount(order.wallet_paid_amount)" class="theme-surface-soft border-2 border-[var(--ui-border)] p-4">
+            <div v-if="hasAmount(order.wallet_paid_amount)" class="theme-surface-soft border-2 border-[var(--ui-border)] p-4 hover-scale">
               <div class="text-xs font-black uppercase tracking-wider font-mono theme-text-muted">{{ t('orderDetail.amountWalletPaid') }}</div>
               <div class="theme-text-primary font-mono font-black mt-1">{{ formatMoney(order.wallet_paid_amount,
                 order.currency) }}</div>
             </div>
-            <div v-if="hasAmount(order.online_paid_amount)" class="theme-surface-soft border-2 border-[var(--ui-border)] p-4">
+            <div v-if="hasAmount(order.online_paid_amount)" class="theme-surface-soft border-2 border-[var(--ui-border)] p-4 hover-scale">
               <div class="text-xs font-black uppercase tracking-wider font-mono theme-text-muted">{{ t('orderDetail.amountOnlinePaid') }}</div>
               <div class="theme-text-primary font-mono font-black mt-1">{{ formatMoney(order.online_paid_amount,
                 order.currency) }}</div>
             </div>
-            <div v-if="hasAmount(order.refunded_amount)" class="theme-surface-soft border-2 border-[var(--ui-border)] p-4">
+            <div v-if="hasAmount(order.refunded_amount)" class="theme-surface-soft border-2 border-[var(--ui-border)] p-4 hover-scale">
               <div class="text-xs font-black uppercase tracking-wider font-mono theme-text-muted">{{ t('orderDetail.amountRefunded') }}</div>
               <div class="theme-text-primary font-mono font-black mt-1">{{ formatMoney(order.refunded_amount,
                 order.currency) }}</div>
@@ -88,19 +88,19 @@
         <div v-if="showTimeCard" class="theme-panel p-6">
           <h2 class="text-lg font-black font-mono uppercase tracking-widest mb-4">{{ t('orderDetail.timeTitle') }}</h2>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-            <div class="theme-surface-soft border-2 border-[var(--ui-border)] p-4">
+            <div class="theme-surface-soft border-2 border-[var(--ui-border)] p-4 hover-scale">
               <div class="text-xs font-black uppercase tracking-wider font-mono theme-text-muted">{{ t('orderDetail.createdAtLabel') }}</div>
               <div class="theme-text-primary mt-1 font-mono">{{ formatDate(order.created_at) }}</div>
             </div>
-            <div v-if="order.paid_at" class="theme-surface-soft border-2 border-[var(--ui-border)] p-4">
+            <div v-if="order.paid_at" class="theme-surface-soft border-2 border-[var(--ui-border)] p-4 hover-scale">
               <div class="text-xs font-black uppercase tracking-wider font-mono theme-text-muted">{{ t('orderDetail.paidAtLabel') }}</div>
               <div class="theme-text-primary mt-1 font-mono">{{ formatDate(order.paid_at) }}</div>
             </div>
-            <div v-if="order.expires_at" class="theme-surface-soft border-2 border-[var(--ui-border)] p-4">
+            <div v-if="order.expires_at" class="theme-surface-soft border-2 border-[var(--ui-border)] p-4 hover-scale">
               <div class="text-xs font-black uppercase tracking-wider font-mono theme-text-muted">{{ t('orderDetail.expiresAtLabel') }}</div>
               <div class="theme-text-primary mt-1 font-mono">{{ formatDate(order.expires_at) }}</div>
             </div>
-            <div v-if="order.canceled_at" class="theme-surface-soft border-2 border-[var(--ui-border)] p-4">
+            <div v-if="order.canceled_at" class="theme-surface-soft border-2 border-[var(--ui-border)] p-4 hover-scale">
               <div class="text-xs font-black uppercase tracking-wider font-mono theme-text-muted">{{ t('orderDetail.canceledAtLabel') }}</div>
               <div class="theme-text-primary mt-1 font-mono">{{ formatDate(order.canceled_at) }}</div>
             </div>

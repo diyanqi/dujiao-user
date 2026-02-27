@@ -13,9 +13,9 @@
         </span>
       </div>
 
-      <div class="theme-auth-card">
+      <div class="theme-auth-card hover-scale">
         <div class="mb-8 text-center">
-          <p class="text-xs font-semibold uppercase tracking-[0.22em] theme-text-accent">米米商城 · mmi.zone</p>
+          <p class="text-xs font-semibold uppercase tracking-[0.22em] theme-text-accent">{{ brandSiteName }}</p>
           <h1 class="mt-3 text-3xl font-black theme-text-primary">{{ t('auth.forgot.title') }}</h1>
           <p class="mt-2 text-sm theme-text-muted">{{ t('auth.forgot.subtitle') }}</p>
         </div>
@@ -133,6 +133,11 @@ const router = useRouter()
 const userAuthStore = useUserAuthStore()
 const appStore = useAppStore()
 const { t } = useI18n()
+
+const brandSiteName = computed(() => {
+  const text = String(appStore.config?.brand?.site_name || '').trim()
+  return text !== '' ? text : '米米商城'
+})
 
 const email = ref('')
 const code = ref('')

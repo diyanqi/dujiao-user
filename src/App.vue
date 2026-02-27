@@ -1,8 +1,12 @@
 <template>
   <div id="app" class="min-h-screen theme-page flex flex-col">
     <Navbar />
-    <main class="flex-1">
-      <RouterView />
+    <main class="flex-1 relative">
+      <RouterView v-slot="{ Component }">
+        <transition name="page" mode="out-in">
+          <component :is="Component" />
+        </transition>
+      </RouterView>
     </main>
     <Footer />
     <Loading :loading="appStore.loading" />

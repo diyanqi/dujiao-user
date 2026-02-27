@@ -180,17 +180,17 @@
             </div>
             </div>
             <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm">
-              <div class="theme-surface-soft border rounded-xl p-3">
+              <div class="theme-surface-soft border rounded-xl p-3 hover-scale">
                 <div class="text-xs theme-text-muted">{{ t('orderDetail.amountOriginal') }}</div>
                 <div class="theme-text-primary font-mono mt-1">{{ formatMoney(order.original_amount,
                   order.currency) }}</div>
               </div>
-              <div class="theme-surface-soft border rounded-xl p-3">
+              <div class="theme-surface-soft border rounded-xl p-3 hover-scale">
                 <div class="text-xs theme-text-muted">{{ t('orderDetail.amountDiscount') }}</div>
                 <div class="theme-text-primary font-mono mt-1">{{ formatMoney(order.discount_amount,
                   order.currency) }}</div>
               </div>
-              <div class="theme-surface-soft border rounded-xl p-3">
+              <div class="theme-surface-soft border rounded-xl p-3 hover-scale">
                 <div class="text-xs theme-text-muted">{{ t('orderDetail.promotionDiscountLabel') }}</div>
                 <div class="theme-text-primary font-mono mt-1">{{ formatMoney(order.promotion_discount_amount,
                   order.currency) }}</div>
@@ -284,7 +284,7 @@
               </div>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <button v-for="channel in channels" :key="channel.id" @click="selectedChannelId = channel.id"
-                  class="text-left border rounded-xl p-4 transition-colors"
+                  class="text-left border rounded-xl p-4 transition-colors hover-scale"
                   :class="selectedChannelId === channel.id ? 'theme-selected-surface' : 'theme-interactive-surface'">
                   <div class="flex items-center justify-between gap-2">
                     <div class="theme-text-primary font-medium">{{ channel.name }}</div>

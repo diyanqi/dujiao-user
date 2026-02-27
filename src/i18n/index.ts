@@ -10,6 +10,8 @@ const messages = {
             success: '成功',
             confirm: '确认',
             cancel: '取消',
+            viewAll: '查看全部',
+            explore: '立即探索',
             viewDetails: '查看详情',
             learnMore: '了解更多',
             scroll: '滚动',
@@ -37,7 +39,7 @@ const messages = {
             about: '关于',
         },
         footer: {
-            description: '专业的在线工作室，为您提供优质的产品和服务。',
+            description: '米米商城是专业的自动发卡平台，主营小学至考研全学段学习备考资料，兼售实用软件与账号等数码资源，24 小时自动发货，安全便捷。',
             quickLinks: '快速链接',
             contact: '联系我们',
             rights: '保留所有权利',
@@ -47,7 +49,9 @@ const messages = {
         home: {
             hero: {
                 title: '米米商城 · mmi.zone',
-                subtitle: '专业的产品与服务提供商',
+                subtitle: '专业自动发卡平台｜全学段学习备考资料与数码资源，24 小时自动发货',
+                welcome: '欢迎来到 mmi.zone',
+                scrollToProducts: '下滑浏览商品',
                 cta: '浏览商品',
                 badge: '新一代数字商店',
             },
@@ -60,8 +64,23 @@ const messages = {
             featured: {
                 title: '精选商品',
                 description: '探索我们精心挑选的优质数字资产系列。',
+                highlight: '精选推荐',
                 empty: '暂无商品',
                 viewAll: '查看全部商品',
+            },
+            features: {
+                instant: {
+                    title: '即时交付',
+                    desc: '自动化流程保障付款后立即发货，省去等待时间。',
+                },
+                secure: {
+                    title: '安全支付',
+                    desc: '支持多种加密支付方式，交易过程稳定可靠。',
+                },
+                support: {
+                    title: '全天支持',
+                    desc: '遇到问题可随时联系支持团队，快速响应。',
+                },
             },
             cta: {
                 title: '准备好开始了吗？',
@@ -74,13 +93,19 @@ const messages = {
             },
         },
         products: {
+            title: '商品中心',
+            all: '全部',
             subtitle: '浏览我们的精选商品',
             categories: '分类',
             allCategories: '全部商品',
             empty: '暂无商品',
+            noProducts: '暂无匹配商品',
+            resetFilters: '重置筛选',
             previous: '上一页',
             next: '下一页',
             price: '价格',
+            buy: '立即购买',
+            uncategorized: '未分类',
             categoryLabel: '分类',
             searchLabel: '搜索',
             searchPlaceholder: '搜索商品名称',
@@ -731,7 +756,7 @@ const messages = {
             about: '關於',
         },
         footer: {
-            description: '專業的線上工作室，為您提供優質的產品和服務。',
+            description: '米米商城是專業的自動發卡平台，主營小學至考研全學段學習備考資料，兼售實用軟體與帳號等數碼資源，24 小時自動發貨，安全便捷。',
             quickLinks: '快速連結',
             contact: '聯絡我們',
             rights: '保留所有權利',
@@ -741,7 +766,9 @@ const messages = {
         home: {
             hero: {
                 title: '米米商城 · mmi.zone',
-                subtitle: '專業的產品與服務提供商',
+                subtitle: '專業自動發卡平台｜全學段學習備考資料與數碼資源，24 小時自動發貨',
+                welcome: '歡迎來到 mmi.zone',
+                scrollToProducts: '下滑瀏覽商品',
                 cta: '瀏覽商品',
                 badge: '新一代數位商店',
             },
@@ -754,8 +781,23 @@ const messages = {
             featured: {
                 title: '精選商品',
                 description: '探索我們精心挑選的優質數位資產系列。',
+                highlight: '精選推薦',
                 empty: '暫無商品',
                 viewAll: '查看全部商品',
+            },
+            features: {
+                instant: {
+                    title: '即時交付',
+                    desc: '自動化流程保障付款後立即發貨，省去等待時間。',
+                },
+                secure: {
+                    title: '安全支付',
+                    desc: '支援多種加密支付方式，交易過程穩定可靠。',
+                },
+                support: {
+                    title: '全天支援',
+                    desc: '遇到問題可隨時聯繫支援團隊，快速回應。',
+                },
             },
             cta: {
                 title: '準備好開始了嗎？',
@@ -768,13 +810,19 @@ const messages = {
             },
         },
         products: {
+            title: '商品中心',
+            all: '全部',
             subtitle: '瀏覽我們的精選商品',
             categories: '分類',
             allCategories: '全部商品',
             empty: '暫無商品',
+            noProducts: '暫無符合條件的商品',
+            resetFilters: '重置篩選',
             previous: '上一頁',
             next: '下一頁',
             price: '價格',
+            buy: '立即購買',
+            uncategorized: '未分類',
             categoryLabel: '分類',
             searchLabel: '搜尋',
             searchPlaceholder: '搜尋商品名稱',
@@ -1398,6 +1446,8 @@ const messages = {
             success: 'Success',
             confirm: 'Confirm',
             cancel: 'Cancel',
+            viewAll: 'View All',
+            explore: 'Explore',
             viewDetails: 'View Details',
             learnMore: 'Learn More',
             scroll: 'Scroll',
@@ -1425,7 +1475,7 @@ const messages = {
             about: 'About',
         },
         footer: {
-            description: 'Professional online studio providing quality products and services.',
+            description: 'Mimi Store is a professional automated digital delivery platform for learning materials from primary school to postgraduate exams, plus practical software and account resources, with 24/7 automatic fulfillment and secure checkout.',
             quickLinks: 'Quick Links',
             contact: 'Contact Us',
             rights: 'All rights reserved',
@@ -1435,7 +1485,9 @@ const messages = {
         home: {
             hero: {
                 title: 'Mimi Store · mmi.zone',
-                subtitle: 'Professional Products and Services Provider',
+                subtitle: 'Professional automated digital delivery platform for study materials and practical digital resources, fulfilled 24/7',
+                welcome: 'Welcome to mmi.zone',
+                scrollToProducts: 'Scroll down to browse products',
                 cta: 'Browse Products',
                 badge: 'Next Gen Digital Store',
             },
@@ -1448,8 +1500,23 @@ const messages = {
             featured: {
                 title: 'Featured Products',
                 description: 'Discover our premium collection of digital assets, curated for excellence.',
+                highlight: 'Featured Pick',
                 empty: 'No products available',
                 viewAll: 'View All Products',
+            },
+            features: {
+                instant: {
+                    title: 'Instant Delivery',
+                    desc: 'Automated workflows deliver your purchase right after payment.',
+                },
+                secure: {
+                    title: 'Secure Payment',
+                    desc: 'Multiple encrypted payment channels keep every transaction safe.',
+                },
+                support: {
+                    title: '24/7 Support',
+                    desc: 'Our support team is available around the clock when you need help.',
+                },
             },
             cta: {
                 title: 'Ready to Start?',
@@ -1462,13 +1529,19 @@ const messages = {
             },
         },
         products: {
+            title: 'Products',
+            all: 'All',
             subtitle: 'Browse our featured products',
             categories: 'Categories',
             allCategories: 'All Products',
             empty: 'No products available',
+            noProducts: 'No matching products',
+            resetFilters: 'Reset filters',
             previous: 'Previous',
             next: 'Next',
             price: 'Price',
+            buy: 'Buy now',
+            uncategorized: 'Uncategorized',
             categoryLabel: 'Category',
             searchLabel: 'Search',
             searchPlaceholder: 'Search products',
@@ -1784,7 +1857,7 @@ const messages = {
                     emailRequired: 'Please enter email first',
                     sendCodeFailed: 'Failed to send code',
                     registerFailed: 'Registration failed, please check input',
-                    agreementRequired: 'Please read and agree to the Privacy Policy and Terms of Service first',
+                    agreementRequired: '请先阅读并同意隐私政策和服务条款',
                 },
             },
             forgot: {

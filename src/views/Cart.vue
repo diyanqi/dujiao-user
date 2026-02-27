@@ -42,7 +42,7 @@
           <article
             v-for="item in cartItems"
             :key="cartItemKey(item)"
-            class="border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] p-6 shadow-[8px_8px_0px_var(--ui-accent)] transition-transform hover:-translate-y-1 hover:shadow-[12px_12px_0px_var(--ui-accent)]"
+            class="border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] p-6 shadow-[8px_8px_0px_var(--ui-accent)] transition-transform hover-scale"
           >
             <div class="flex gap-6">
               <div
