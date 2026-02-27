@@ -1,20 +1,23 @@
 <template>
   <div class="min-h-screen theme-page pt-24 pb-16">
     <div class="container mx-auto px-4">
-      <div class="mb-8">
-        <h1 class="mb-2 text-3xl font-black theme-text-primary">{{ t('checkout.title') }}</h1>
-        <p class="text-sm theme-text-secondary">{{ t('checkout.subtitle') }}</p>
+      <div class="mb-8 border-b-4 border-[var(--ui-border)] pb-6">
+        <h1 class="mb-2 text-4xl font-black text-[var(--ui-accent)] uppercase tracking-widest font-mono flex items-center gap-4">
+          <span class="w-4 h-10 bg-[var(--ui-accent)]"></span>
+          {{ t('checkout.title') }}
+        </h1>
+        <p class="text-sm font-bold text-[var(--ui-text-muted)] uppercase tracking-widest font-mono">{{ t('checkout.subtitle') }}</p>
       </div>
 
-      <div class="mb-8 rounded-2xl border border-gray-200 theme-panel-soft p-4 backdrop-blur">
-        <div class="grid grid-cols-3 gap-3">
+      <div class="mb-8 border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] p-4 shadow-[8px_8px_0px_var(--ui-accent)]">
+        <div class="grid grid-cols-3 gap-4">
           <div
             v-for="step in flowSteps"
             :key="step.key"
-            class="theme-step-chip"
+            class="text-center py-3 font-bold uppercase tracking-widest font-mono text-sm border-2 transition-all duration-300"
             :class="step.active
-              ? 'theme-step-chip-active'
-              : 'theme-step-chip-inactive'"
+              ? 'border-[var(--ui-accent)] bg-[var(--ui-accent)] text-[var(--ui-text-on-accent)] shadow-[4px_4px_0px_var(--ui-accent-soft)]'
+              : 'border-[var(--ui-border)] bg-transparent text-[var(--ui-text-muted)]'"
           >
             {{ step.label }}
           </div>
@@ -23,71 +26,71 @@
 
       <div
         v-if="cartItems.length === 0"
-        class="rounded-2xl border border-gray-200 bg-white p-12 text-center dark:border-white/10"
+        class="border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] p-16 text-center shadow-[8px_8px_0px_var(--ui-accent)]"
       >
-        <p class="mb-6 theme-text-muted">{{ t('checkout.empty') }}</p>
+        <p class="mb-8 text-xl font-bold text-[var(--ui-text-muted)] uppercase tracking-widest font-mono">{{ t('checkout.empty') }}</p>
         <router-link
           to="/products"
-          class="theme-btn-inline-md theme-btn-primary gap-2 font-semibold transition-colors"
+          class="inline-block px-8 py-4 theme-btn-primary font-bold uppercase tracking-widest text-lg"
         >
           {{ t('checkout.emptyAction') }}
         </router-link>
       </div>
 
       <div v-else class="grid grid-cols-1 gap-8 lg:grid-cols-3">
-        <div class="space-y-6 lg:col-span-2">
-          <div class="rounded-2xl border border-gray-200 bg-white p-6 dark:border-white/10">
-            <h2 class="mb-4 text-lg font-bold theme-text-primary">{{ t('checkout.itemsTitle') }}</h2>
+        <div class="space-y-8 lg:col-span-2">
+          <div class="border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] p-8 shadow-[8px_8px_0px_var(--ui-accent)]">
+            <h2 class="mb-6 text-xl font-black text-[var(--ui-accent)] uppercase tracking-widest font-mono border-b-2 border-[var(--ui-border)] pb-4">{{ t('checkout.itemsTitle') }}</h2>
             <div class="space-y-4">
               <div
                 v-for="item in cartItems"
                 :key="cartItemKey(item)"
-                class="rounded-xl border p-4"
+                class="border-2 p-4 transition-all"
                 :class="itemStockExceeded(item)
-                  ? 'border-amber-200 bg-amber-50/60 dark:border-amber-700 dark:bg-amber-950/20'
-                  : 'border-gray-100 bg-gray-50 dark:border-white/10 dark:bg-black/20'"
+                  ? 'border-[var(--ui-warning)] bg-[var(--ui-warning-soft)]'
+                  : 'border-[var(--ui-border)] bg-[var(--ui-bg-soft)]'"
               >
                 <div class="flex items-start justify-between gap-4">
                   <div>
                     <router-link
                       :to="`/products/${item.slug}`"
-                      class="font-semibold theme-link"
+                      class="text-lg font-black text-[var(--ui-text-primary)] hover:text-[var(--ui-accent)] transition-colors uppercase tracking-wide"
                     >
                       {{ getLocalizedText(item.title) }}
                     </router-link>
-                    <div class="mt-1 text-xs text-gray-500">{{ t('checkout.quantityLabel') }}：{{ item.quantity }}</div>
-                    <div v-if="itemSkuDisplay(item)" class="mt-1 text-xs text-gray-500">{{ t('checkout.skuLabel') }}：{{ itemSkuDisplay(item) }}</div>
+                    <div class="mt-2 text-xs font-bold text-[var(--ui-text-muted)] font-mono">{{ t('checkout.quantityLabel') }}：<span class="text-[var(--ui-text-primary)]">{{ item.quantity }}</span></div>
+                    <div v-if="itemSkuDisplay(item)" class="mt-1 text-xs font-bold text-[var(--ui-text-muted)] font-mono">{{ t('checkout.skuLabel') }}：<span class="text-[var(--ui-text-primary)]">{{ itemSkuDisplay(item) }}</span></div>
                     <div
                       v-if="itemStockHint(item)"
-                      class="mt-1 text-xs"
+                      class="mt-1 text-xs font-bold font-mono"
                       :class="itemStockExceeded(item)
-                        ? 'text-amber-600 dark:text-amber-300'
-                        : 'text-gray-500'"
+                        ? 'text-[var(--ui-warning)]'
+                        : 'text-[var(--ui-text-muted)]'"
                     >
                       {{ itemStockHint(item) }}
                     </div>
-                    <div class="mt-2 flex flex-wrap gap-2">
+                    <div class="mt-3 flex flex-wrap gap-3">
                       <span
-                        class="theme-badge text-xs uppercase tracking-wider"
+                        class="border border-[var(--ui-warning)] bg-[var(--ui-warning-soft)] text-[var(--ui-warning)] px-2 py-1 text-[10px] font-black uppercase tracking-widest"
                         :class="item.purchaseType === 'guest'
-                          ? 'theme-badge-warning'
-                          : 'theme-badge-success'"
+                          ? 'border-[var(--ui-warning)] text-[var(--ui-warning)]'
+                          : 'border-[var(--ui-success)] text-[var(--ui-success)]'"
                       >
                         {{ item.purchaseType === 'guest' ? t('productPurchase.guest') : t('productPurchase.member') }}
                       </span>
                       <span
-                        class="theme-badge text-xs uppercase tracking-wider"
+                        class="border border-[var(--ui-info)] bg-[var(--ui-info-soft)] text-[var(--ui-info)] px-2 py-1 text-[10px] font-black uppercase tracking-widest"
                         :class="item.fulfillmentType === 'auto'
-                          ? 'theme-badge-info'
-                          : 'theme-badge-neutral'"
+                          ? 'border-[var(--ui-info)] text-[var(--ui-info)]'
+                          : 'border-[var(--ui-text-muted)] text-[var(--ui-text-muted)]'"
                       >
                         {{ item.fulfillmentType === 'auto' ? t('products.fulfillmentType.auto') : t('products.fulfillmentType.manual') }}
                       </span>
                     </div>
                   </div>
                   <div class="text-right">
-                    <div class="text-xs uppercase tracking-wider text-gray-500">{{ t('checkout.previewTotal') }}</div>
-                    <div class="text-sm font-semibold theme-text-primary">{{ itemSubtotal(item) }}</div>
+                    <div class="text-xs font-bold uppercase tracking-widest text-[var(--ui-text-muted)] font-mono">{{ t('checkout.previewTotal') }}</div>
+                    <div class="text-lg font-black text-[var(--ui-accent)] font-mono">{{ itemSubtotal(item) }}</div>
                   </div>
                 </div>
               </div>
@@ -96,61 +99,61 @@
 
           <div
             v-if="manualFormProducts.length"
-            class="rounded-2xl border border-gray-200 bg-white p-6 dark:border-white/10"
+            class="border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] p-8 shadow-[8px_8px_0px_var(--ui-accent)]"
           >
-            <h2 class="mb-2 text-lg font-bold theme-text-primary">{{ t('checkout.manualFormTitle') }}</h2>
-            <p class="mb-4 text-xs theme-text-muted">{{ t('checkout.manualFormTip') }}</p>
-            <div class="space-y-5">
+            <h2 class="mb-2 text-xl font-black text-[var(--ui-accent)] uppercase tracking-widest font-mono border-b-2 border-[var(--ui-border)] pb-4">{{ t('checkout.manualFormTitle') }}</h2>
+            <p class="mb-6 mt-4 text-sm font-bold text-[var(--ui-text-muted)] font-mono">{{ t('checkout.manualFormTip') }}</p>
+            <div class="space-y-6">
               <div
                 v-for="manualItem in manualFormProducts"
                 :key="manualItem.itemKey"
-                class="rounded-xl border border-gray-100 bg-gray-50 p-4 dark:border-white/10 dark:bg-black/20"
+                class="border-2 border-[var(--ui-border)] bg-[var(--ui-bg-soft)] p-6"
               >
-                <h3 class="mb-3 text-sm font-semibold theme-text-primary">{{ manualItemTitle(manualItem) }}</h3>
-                <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-                  <div v-for="field in manualItem.fields" :key="`${manualItem.itemKey}-${field.key}`" class="space-y-1.5">
-                    <label class="text-xs font-semibold text-gray-600 dark:text-gray-300">
+                <h3 class="mb-4 text-lg font-black text-[var(--ui-text-primary)] uppercase tracking-wide">{{ manualItemTitle(manualItem) }}</h3>
+                <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+                  <div v-for="field in manualItem.fields" :key="`${manualItem.itemKey}-${field.key}`" class="space-y-2">
+                    <label class="text-xs font-black text-[var(--ui-text-secondary)] uppercase tracking-widest font-mono">
                       {{ getManualFieldLabel(field) }}
-                      <span v-if="field.required" class="ml-1 text-red-500">*</span>
+                      <span v-if="field.required" class="ml-1 text-[var(--ui-danger)]">*</span>
                     </label>
 
                     <textarea
                       v-if="field.type === 'textarea'"
                       v-model="ensureManualFormRow(manualItem.itemKey)[field.key]"
                       rows="3"
-                      class="w-full form-input-compact"
+                      class="w-full border-2 border-[var(--ui-border)] bg-[var(--ui-bg-page)] px-4 py-3 text-sm font-mono focus:border-[var(--ui-accent)] focus:outline-none transition-colors"
                       :placeholder="getManualFieldPlaceholder(field)"
                     />
 
                     <select
                       v-else-if="field.type === 'select'"
                       v-model="ensureManualFormRow(manualItem.itemKey)[field.key]"
-                      class="w-full form-input-compact"
+                      class="w-full border-2 border-[var(--ui-border)] bg-[var(--ui-bg-page)] px-4 py-3 text-sm font-mono focus:border-[var(--ui-accent)] focus:outline-none transition-colors"
                     >
                       <option value="">{{ t('checkout.manualFormSelectPlaceholder') }}</option>
                       <option v-for="option in field.options" :key="option" :value="option">{{ option }}</option>
                     </select>
 
-                    <div v-else-if="field.type === 'radio'" class="space-y-2 rounded-xl border border-gray-200 bg-white p-3 dark:border-white/10 dark:bg-black/40">
-                      <label v-for="option in field.options" :key="option" class="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-200">
+                    <div v-else-if="field.type === 'radio'" class="space-y-3 border-2 border-[var(--ui-border)] bg-[var(--ui-bg-page)] p-4">
+                      <label v-for="option in field.options" :key="option" class="flex items-center gap-3 text-sm font-bold text-[var(--ui-text-primary)] font-mono cursor-pointer">
                         <input
                           v-model="ensureManualFormRow(manualItem.itemKey)[field.key]"
                           type="radio"
                           :name="`manual-radio-${manualItem.itemKey}-${field.key}`"
                           :value="option"
-                          class="h-4 w-4"
+                          class="h-5 w-5 accent-[var(--ui-accent)]"
                         />
                         <span>{{ option }}</span>
                       </label>
                     </div>
 
-                    <div v-else-if="field.type === 'checkbox'" class="space-y-2 rounded-xl border border-gray-200 bg-white p-3 dark:border-white/10 dark:bg-black/40">
-                      <label v-for="option in field.options" :key="option" class="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-200">
+                    <div v-else-if="field.type === 'checkbox'" class="space-y-3 border-2 border-[var(--ui-border)] bg-[var(--ui-bg-page)] p-4">
+                      <label v-for="option in field.options" :key="option" class="flex items-center gap-3 text-sm font-bold text-[var(--ui-text-primary)] font-mono cursor-pointer">
                         <input
                           v-model="ensureManualFormRow(manualItem.itemKey)[field.key]"
                           type="checkbox"
                           :value="option"
-                          class="h-4 w-4"
+                          class="h-5 w-5 accent-[var(--ui-accent)]"
                         />
                         <span>{{ option }}</span>
                       </label>
@@ -160,13 +163,13 @@
                       v-else
                       v-model="ensureManualFormRow(manualItem.itemKey)[field.key]"
                       :type="field.type === 'number' ? 'number' : field.type === 'email' ? 'email' : field.type === 'phone' ? 'tel' : 'text'"
-                      class="w-full form-input-compact"
+                      class="w-full border-2 border-[var(--ui-border)] bg-[var(--ui-bg-page)] px-4 py-3 text-sm font-mono focus:border-[var(--ui-accent)] focus:outline-none transition-colors"
                       :placeholder="getManualFieldPlaceholder(field)"
                     />
 
                     <p
                       v-if="submitAttempted && manualFieldError(manualItem.itemKey, field.key)"
-                      class="text-xs text-red-500"
+                      class="text-xs font-bold text-[var(--ui-danger)] uppercase tracking-wider mt-1"
                     >
                       {{ manualFieldError(manualItem.itemKey, field.key) }}
                     </p>
@@ -176,56 +179,56 @@
             </div>
           </div>
 
-          <div class="rounded-2xl border border-gray-200 bg-white p-6 dark:border-white/10">
-            <h2 class="mb-4 text-lg font-bold theme-text-primary">{{ t('checkout.couponTitle') }}</h2>
+          <div class="border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] p-8 shadow-[8px_8px_0px_var(--ui-accent)]">
+            <h2 class="mb-6 text-xl font-black text-[var(--ui-accent)] uppercase tracking-widest font-mono border-b-2 border-[var(--ui-border)] pb-4">{{ t('checkout.couponTitle') }}</h2>
             <input
               v-model="couponCode"
               type="text"
-              class="w-full form-input-lg"
+              class="w-full border-2 border-[var(--ui-border)] bg-[var(--ui-bg-page)] px-6 py-4 text-lg font-mono focus:border-[var(--ui-accent)] focus:outline-none transition-colors uppercase"
               :placeholder="t('checkout.couponPlaceholder')"
             />
           </div>
 
           <div
             v-if="!userAuthStore.isAuthenticated"
-            class="space-y-4 rounded-2xl border border-gray-200 bg-white p-6 dark:border-white/10"
+            class="space-y-6 border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] p-8 shadow-[8px_8px_0px_var(--ui-accent)]"
           >
-            <h2 class="text-lg font-bold theme-text-primary">{{ t('checkout.modeTitle') }}</h2>
-            <div class="flex flex-wrap gap-3">
+            <h2 class="text-xl font-black text-[var(--ui-accent)] uppercase tracking-widest font-mono border-b-2 border-[var(--ui-border)] pb-4">{{ t('checkout.modeTitle') }}</h2>
+            <div class="flex flex-wrap gap-4 mt-6">
               <button
                 @click="checkoutMode = 'guest'"
-                class="theme-btn-inline-md"
+                class="px-6 py-3 font-bold uppercase tracking-widest text-sm border-2 transition-all duration-300"
                 :class="checkoutMode === 'guest'
-                  ? 'theme-btn-primary border border-transparent'
-                  : 'border theme-btn-secondary'"
+                  ? 'border-[var(--ui-accent)] bg-[var(--ui-accent)] text-[var(--ui-text-on-accent)] shadow-[4px_4px_0px_var(--ui-accent-soft)]'
+                  : 'border-[var(--ui-border)] bg-transparent text-[var(--ui-text-primary)] hover:border-[var(--ui-accent)] hover:text-[var(--ui-accent)]'"
               >
                 {{ t('checkout.guestPurchase') }}
               </button>
               <router-link
                 to="/auth/login"
-                class="theme-btn-inline-md border theme-btn-secondary"
+                class="px-6 py-3 font-bold uppercase tracking-widest text-sm border-2 border-[var(--ui-border)] bg-transparent text-[var(--ui-text-primary)] hover:border-[var(--ui-accent)] hover:text-[var(--ui-accent)] transition-all duration-300"
               >
                 {{ t('checkout.memberPurchase') }}
               </router-link>
             </div>
 
-            <div v-if="checkoutMode === 'guest'" class="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div v-if="checkoutMode === 'guest'" class="grid grid-cols-1 gap-6 md:grid-cols-2 mt-6">
               <input
                 v-model="guestEmail"
                 type="email"
-                class="w-full form-input-lg"
+                class="w-full border-2 border-[var(--ui-border)] bg-[var(--ui-bg-page)] px-4 py-3 text-sm font-mono focus:border-[var(--ui-accent)] focus:outline-none transition-colors"
                 :placeholder="t('checkout.guestEmailPlaceholder')"
               />
               <input
                 v-model="guestPassword"
                 type="password"
-                class="w-full form-input-lg"
+                class="w-full border-2 border-[var(--ui-border)] bg-[var(--ui-bg-page)] px-4 py-3 text-sm font-mono focus:border-[var(--ui-accent)] focus:outline-none transition-colors"
                 :placeholder="t('checkout.guestPasswordPlaceholder')"
               />
             </div>
 
-            <div v-if="checkoutMode === 'guest' && guestCaptchaEnabled" class="space-y-2">
-              <p class="text-xs font-semibold uppercase tracking-[0.14em] theme-text-muted">{{ t('auth.common.captchaLabel') }}</p>
+            <div v-if="checkoutMode === 'guest' && guestCaptchaEnabled" class="space-y-2 mt-6">
+              <p class="text-xs font-black uppercase tracking-widest text-[var(--ui-text-muted)] font-mono">{{ t('auth.common.captchaLabel') }}</p>
               <ImageCaptcha
                 v-if="captchaProvider === 'image'"
                 ref="guestImageCaptchaRef"
@@ -241,51 +244,51 @@
               />
             </div>
 
-            <p v-if="checkoutMode === 'guest'" class="text-xs text-gray-500">
+            <p v-if="checkoutMode === 'guest'" class="text-xs font-bold text-[var(--ui-text-muted)] font-mono mt-4">
               {{ t('checkout.guestTip') }}
             </p>
-            <p v-if="checkoutMode === 'guest' && guestEmail && !guestEmailValid" class="text-xs text-red-500">
+            <p v-if="checkoutMode === 'guest' && guestEmail && !guestEmailValid" class="text-xs font-bold text-[var(--ui-danger)] uppercase tracking-wider mt-2">
               {{ t('error.email_invalid') }}
             </p>
           </div>
         </div>
 
-        <div class="h-fit rounded-2xl border border-gray-200 bg-white p-6 lg:sticky lg:top-24 dark:border-white/10">
-          <h2 class="mb-4 text-lg font-bold theme-text-primary">{{ t('checkout.submitTitle') }}</h2>
-          <div class="mb-4 rounded-lg border border-gray-100 bg-gray-50 p-3 text-xs text-gray-500 dark:border-white/10 dark:bg-black/20 dark:text-gray-400">
+        <div class="h-fit border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] p-8 lg:sticky lg:top-24 shadow-[8px_8px_0px_var(--ui-accent)]">
+          <h2 class="mb-6 text-xl font-black text-[var(--ui-accent)] uppercase tracking-widest font-mono border-b-2 border-[var(--ui-border)] pb-4">{{ t('checkout.submitTitle') }}</h2>
+          <div class="mb-6 border-2 border-[var(--ui-border)] bg-[var(--ui-bg-soft)] p-4 text-xs font-bold text-[var(--ui-text-muted)] font-mono uppercase tracking-wider leading-relaxed">
             {{ t('checkout.submitHint') }}
           </div>
 
-          <div class="mb-4 space-y-3 text-sm theme-text-muted">
+          <div class="mb-8 space-y-4 text-sm font-bold text-[var(--ui-text-muted)] font-mono">
             <div class="flex items-center justify-between">
-              <span>{{ t('cart.itemsCount') }}</span>
-              <span class="font-mono theme-text-primary">{{ totalItems }}</span>
+              <span class="uppercase tracking-widest">{{ t('cart.itemsCount') }}</span>
+              <span class="font-black text-[var(--ui-text-primary)] text-lg">{{ totalItems }}</span>
             </div>
             <div class="flex items-center justify-between">
-              <span>{{ t('checkout.previewOriginal') }}</span>
-              <span class="font-mono theme-text-primary">{{ formatPrice(previewOriginal, previewCurrency) }}</span>
+              <span class="uppercase tracking-widest">{{ t('checkout.previewOriginal') }}</span>
+              <span class="font-black text-[var(--ui-text-primary)]">{{ formatPrice(previewOriginal, previewCurrency) }}</span>
             </div>
             <div class="flex items-center justify-between">
-              <span>{{ t('checkout.previewCoupon') }}</span>
-              <span class="font-mono theme-text-primary">{{ formatPrice(previewCoupon, previewCurrency) }}</span>
+              <span class="uppercase tracking-widest">{{ t('checkout.previewCoupon') }}</span>
+              <span class="font-black text-[var(--ui-success)]">{{ formatPrice(previewCoupon, previewCurrency) }}</span>
             </div>
             <div class="flex items-center justify-between">
-              <span>{{ t('checkout.previewPromotion') }}</span>
-              <span class="font-mono theme-text-primary">{{ formatPrice(previewPromotion, previewCurrency) }}</span>
+              <span class="uppercase tracking-widest">{{ t('checkout.previewPromotion') }}</span>
+              <span class="font-black text-[var(--ui-danger)]">{{ formatPrice(previewPromotion, previewCurrency) }}</span>
             </div>
-            <div class="flex items-center justify-between border-t border-gray-100 pt-3 text-gray-900 dark:border-white/10 dark:text-white">
-              <span class="font-semibold">{{ t('checkout.previewTotal') }}</span>
-              <span class="font-mono text-lg font-bold">{{ formatPrice(previewTotal, previewCurrency) }}</span>
+            <div class="flex items-center justify-between border-t-2 border-[var(--ui-border)] pt-4 text-[var(--ui-text-primary)]">
+              <span class="font-black uppercase tracking-widest">{{ t('checkout.previewTotal') }}</span>
+              <span class="font-black text-2xl text-[var(--ui-accent)]">{{ formatPrice(previewTotal, previewCurrency) }}</span>
             </div>
           </div>
 
-          <div v-if="previewLoading || couponRefreshing" class="mb-3 text-xs theme-text-muted">
+          <div v-if="previewLoading || couponRefreshing" class="mb-4 text-xs font-bold text-[var(--ui-accent)] uppercase tracking-widest animate-pulse">
             {{ previewStatusText }}
           </div>
           <div
             v-if="checkoutAlert"
-            class="mb-4 rounded-lg border p-3 text-sm"
-            :class="pageAlertClass(checkoutAlert.level)"
+            class="mb-6 border-2 px-4 py-3 text-sm font-bold uppercase tracking-wider"
+            :class="checkoutAlert.level === 'error' ? 'border-[var(--ui-danger)] bg-[var(--ui-danger-soft)] text-[var(--ui-danger)] shadow-[4px_4px_0px_var(--ui-danger)]' : 'border-[var(--ui-warning)] bg-[var(--ui-warning-soft)] text-[var(--ui-warning)] shadow-[4px_4px_0px_var(--ui-warning)]'"
           >
             {{ checkoutAlert.message }}
           </div>
@@ -293,7 +296,7 @@
           <button
             @click="handleSubmit"
             :disabled="!canSubmit"
-            class="theme-btn-block-md theme-btn-primary font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+            class="block w-full text-center px-6 py-4 theme-btn-primary font-bold uppercase tracking-widest text-lg disabled:cursor-not-allowed disabled:opacity-50"
           >
             {{ submitting ? t('checkout.submitting') : t('checkout.submitButton') }}
           </button>

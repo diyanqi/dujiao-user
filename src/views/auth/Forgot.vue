@@ -4,18 +4,18 @@
       <div class="mb-4 flex items-center justify-between px-1">
         <router-link
           to="/"
-          class="theme-nav-link rounded-full gap-1"
+          class="theme-nav-link gap-1"
         >
           ← {{ t('auth.login.backHome') }}
         </router-link>
-        <span class="rounded-full border theme-pill-neutral px-3 py-1 text-xs font-semibold">
+        <span class="border-2 theme-pill-neutral px-3 py-1 text-xs font-black uppercase tracking-widest font-mono">
           {{ t('auth.forgot.title') }}
         </span>
       </div>
 
       <div class="theme-auth-card">
         <div class="mb-8 text-center">
-          <p class="text-xs font-semibold uppercase tracking-[0.22em] theme-text-accent">米米小卖部 · mmi.zone</p>
+          <p class="text-xs font-semibold uppercase tracking-[0.22em] theme-text-accent">米米商城 · mmi.zone</p>
           <h1 class="mt-3 text-3xl font-black theme-text-primary">{{ t('auth.forgot.title') }}</h1>
           <p class="mt-2 text-sm theme-text-muted">{{ t('auth.forgot.subtitle') }}</p>
         </div>

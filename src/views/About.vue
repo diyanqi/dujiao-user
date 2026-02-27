@@ -21,14 +21,14 @@
 
         <div v-if="hasServices" class="mb-12">
           <h2 v-if="servicesTitle" class="text-2xl font-bold theme-text-primary mb-6 flex items-center gap-3">
-            <span class="w-1.5 h-8 theme-accent-stick rounded-full"></span>
+            <span class="w-1.5 h-8 theme-accent-stick"></span>
             {{ servicesTitle }}
           </h2>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div
               v-for="(service, index) in serviceItems"
               :key="`about-service-${index}`"
-              class="flex items-start gap-3 p-4 theme-surface-soft rounded-xl border theme-border transition-colors">
+              class="flex items-start gap-3 p-4 theme-surface-soft border-2 theme-border transition-colors">
               <svg class="w-6 h-6 theme-text-accent flex-shrink-0 mt-0.5" fill="none"
                 stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
@@ -40,7 +40,7 @@
 
         <div v-if="hasContact">
           <h2 v-if="contactTitle" class="text-2xl font-bold theme-text-primary mb-6 flex items-center gap-3">
-            <span class="w-1.5 h-8 theme-accent-stick rounded-full"></span>
+            <span class="w-1.5 h-8 theme-accent-stick"></span>
             {{ contactTitle }}
           </h2>
           <p v-if="contactText" class="theme-text-secondary mb-8 whitespace-pre-line">
@@ -48,7 +48,7 @@
           </p>
           <div v-if="hasContactLinks" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <a v-if="contactConfig?.telegram" :href="contactConfig.telegram" target="_blank" rel="noopener noreferrer"
-              class="group flex items-center justify-center space-x-3 theme-surface-soft border theme-border theme-text-secondary px-6 py-4 rounded-xl transition-colors hover:theme-text-primary">
+              class="group flex items-center justify-center space-x-3 theme-surface-soft border-2 theme-border theme-text-secondary px-6 py-4 transition-colors hover:theme-text-primary">
               <svg class="w-6 h-6 text-sky-500" fill="currentColor" viewBox="0 0 24 24">
                 <path
                   d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z" />

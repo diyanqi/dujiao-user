@@ -1,17 +1,17 @@
 <template>
   <div class="min-h-screen theme-page pt-24 pb-16">
     <div class="container mx-auto px-4">
-      <div class="mb-6 flex items-center justify-between">
+      <div class="mb-6 flex items-center justify-between border-b-2 border-[var(--ui-border)] pb-4">
         <div>
-          <h1 class="text-3xl font-black theme-text-primary mb-2">{{ t('payment.title') }}</h1>
-          <p class="theme-text-secondary text-sm">{{ t('payment.subtitle') }}</p>
+          <h1 class="text-3xl font-black font-mono uppercase tracking-widest text-[var(--ui-accent)] mb-2">{{ t('payment.title') }}</h1>
+          <p class="theme-text-secondary text-sm font-mono">{{ t('payment.subtitle') }}</p>
         </div>
         <router-link :to="backLink"
-          class="theme-link-muted text-sm">{{
+          class="theme-link-muted text-sm font-mono uppercase tracking-wider">{{
             t('payment.backToOrders') }}</router-link>
       </div>
 
-      <div class="mb-8 rounded-2xl border border-gray-200 theme-panel-soft p-4 backdrop-blur">
+      <div class="mb-8 border-2 border-[var(--ui-border)] theme-panel-soft p-4 shadow-[6px_6px_0px_var(--ui-border)]">
         <div class="grid grid-cols-3 gap-3">
           <div
             v-for="step in flowSteps"
@@ -27,13 +27,13 @@
       </div>
 
       <div v-if="loading"
-        class="h-40 border theme-surface-muted rounded-2xl animate-pulse">
+        class="h-40 border-2 border-[var(--ui-border)] theme-surface-muted animate-pulse">
       </div>
 
       <div v-else-if="showGuestAuthForm"
-        class="theme-panel rounded-2xl p-6">
-        <h2 class="text-lg font-bold mb-2">{{ t('payment.guestAuthTitle') }}</h2>
-        <p class="text-xs theme-text-muted mb-4">{{ t('payment.guestAuthHint') }}</p>
+        class="theme-panel p-6">
+        <h2 class="text-lg font-black font-mono uppercase tracking-widest mb-2">{{ t('payment.guestAuthTitle') }}</h2>
+        <p class="text-xs theme-text-muted mb-4 font-mono">{{ t('payment.guestAuthHint') }}</p>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <input v-model="guestAuth.email" type="email"
             class="form-input-lg"
@@ -43,18 +43,18 @@
             :placeholder="t('guestOrders.passwordPlaceholder')" />
         </div>
         <div v-if="guestAuthError"
-          class="text-red-400 text-sm mt-4 bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/20 rounded-lg p-3">
+          class="theme-alert-danger text-sm mt-4 border-2 p-3 font-mono font-bold">
           {{ guestAuthError }}
         </div>
         <button @click="handleGuestAuthSubmit"
-          class="theme-btn-inline-md mt-4 border theme-btn-secondary font-semibold">
+          class="theme-btn-inline-md mt-4 border-2 theme-btn-secondary font-black uppercase tracking-widest">
           {{ t('payment.guestAuthSubmit') }}
         </button>
       </div>
 
       <div v-else-if="!order"
-        class="theme-panel rounded-2xl p-12 text-center">
-        <p class="theme-text-muted">{{ t('payment.orderNotFound') }}</p>
+        class="theme-panel p-12 text-center">
+        <p class="theme-text-muted font-mono">{{ t('payment.orderNotFound') }}</p>
       </div>
 
       <div v-else-if="showResultView" class="space-y-6">
@@ -215,7 +215,7 @@
             <h2 class="text-lg font-bold mb-4 theme-text-primary">{{ t('payment.itemsTitle') }}</h2>
             <div class="space-y-3 text-sm theme-text-muted">
               <div v-for="item in orderItems" :key="item.id"
-                class="flex flex-col md:flex-row md:items-center md:justify-between gap-2 border-b border-gray-100 dark:border-white/5 pb-3">
+                class="flex flex-col md:flex-row md:items-center md:justify-between gap-2 border-b-2 border-[var(--ui-border)] pb-3">
                 <div>
                   <div class="theme-text-primary font-medium">{{ getLocalizedText(item.title) }}</div>
                   <div class="text-xs theme-text-muted mt-1">

@@ -1,20 +1,23 @@
 <template>
   <div class="min-h-screen theme-page pt-24 pb-16">
     <div class="container mx-auto px-4">
-      <div class="mb-8">
-        <h1 class="mb-2 text-3xl font-black theme-text-primary">{{ t('cart.title') }}</h1>
-        <p class="text-sm theme-text-secondary">{{ t('cart.subtitle') }}</p>
+      <div class="mb-8 border-b-4 border-[var(--ui-border)] pb-6">
+        <h1 class="mb-2 text-4xl font-black text-[var(--ui-accent)] uppercase tracking-widest font-mono flex items-center gap-4">
+          <span class="w-4 h-10 bg-[var(--ui-accent)]"></span>
+          {{ t('cart.title') }}
+        </h1>
+        <p class="text-sm font-bold text-[var(--ui-text-muted)] uppercase tracking-widest font-mono">{{ t('cart.subtitle') }}</p>
       </div>
 
-      <div class="mb-8 rounded-2xl border border-gray-200 theme-panel-soft p-4 backdrop-blur">
-        <div class="grid grid-cols-3 gap-3">
+      <div class="mb-8 border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] p-4 shadow-[8px_8px_0px_var(--ui-accent)]">
+        <div class="grid grid-cols-3 gap-4">
           <div
             v-for="step in flowSteps"
             :key="step.key"
-            class="theme-step-chip"
+            class="text-center py-3 font-bold uppercase tracking-widest font-mono text-sm border-2 transition-all duration-300"
             :class="step.active
-              ? 'theme-step-chip-active'
-              : 'theme-step-chip-inactive'"
+              ? 'border-[var(--ui-accent)] bg-[var(--ui-accent)] text-[var(--ui-text-on-accent)] shadow-[4px_4px_0px_var(--ui-accent-soft)]'
+              : 'border-[var(--ui-border)] bg-transparent text-[var(--ui-text-muted)]'"
           >
             {{ step.label }}
           </div>
@@ -23,35 +26,35 @@
 
       <div
         v-if="cartItems.length === 0"
-        class="rounded-2xl border theme-panel p-12 text-center"
+        class="border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] p-16 text-center shadow-[8px_8px_0px_var(--ui-accent)]"
       >
-        <p class="mb-6 theme-text-muted">{{ t('cart.empty') }}</p>
+        <p class="mb-8 text-xl font-bold text-[var(--ui-text-muted)] uppercase tracking-widest font-mono">{{ t('cart.empty') }}</p>
         <router-link
           to="/products"
-          class="theme-btn-inline-md theme-btn-primary gap-2 font-semibold transition-colors"
+          class="inline-block px-8 py-4 theme-btn-primary font-bold uppercase tracking-widest text-lg"
         >
           {{ t('cart.emptyAction') }}
         </router-link>
       </div>
 
       <div v-else class="grid grid-cols-1 gap-8 lg:grid-cols-3">
-        <div class="space-y-4 lg:col-span-2">
+        <div class="space-y-6 lg:col-span-2">
           <article
             v-for="item in cartItems"
             :key="cartItemKey(item)"
-            class="rounded-2xl border theme-panel p-5"
+            class="border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] p-6 shadow-[8px_8px_0px_var(--ui-accent)] transition-transform hover:-translate-y-1 hover:shadow-[12px_12px_0px_var(--ui-accent)]"
           >
-            <div class="flex gap-5">
+            <div class="flex gap-6">
               <div
-                class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-xl border theme-surface-muted"
+                class="h-32 w-32 flex-shrink-0 border-2 border-[var(--ui-border)] bg-[var(--ui-bg-soft)]"
               >
-                <img v-if="item.image" :src="item.image" class="h-full w-full object-cover" />
-                <div v-else class="flex h-full w-full items-center justify-center theme-text-muted">
-                  <svg class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <img v-if="item.image" :src="item.image" class="h-full w-full object-cover grayscale hover:grayscale-0 transition-all duration-500" />
+                <div v-else class="flex h-full w-full items-center justify-center text-[var(--ui-text-muted)]">
+                  <svg class="h-10 w-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
                       stroke-linecap="round"
                       stroke-linejoin="round"
-                      stroke-width="1.5"
+                      stroke-width="2"
                       d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
                     />
                   </svg>
@@ -63,27 +66,27 @@
                   <div>
                     <router-link
                       :to="`/products/${item.slug}`"
-                      class="text-lg font-bold theme-link"
+                      class="text-xl font-black text-[var(--ui-text-primary)] hover:text-[var(--ui-accent)] transition-colors uppercase tracking-wide"
                     >
                       {{ getLocalizedText(item.title) }}
                     </router-link>
-                    <p class="mt-1 text-sm theme-text-muted">{{ t('cart.priceLabel') }}：{{ formatPrice(item.priceAmount, totalCurrency) }}</p>
-                    <p v-if="itemSkuDisplay(item)" class="mt-1 text-xs theme-text-muted">{{ t('cart.skuLabel') }}：{{ itemSkuDisplay(item) }}</p>
-                    <p v-if="itemStockHint(item)" class="mt-1 text-xs theme-text-muted">{{ itemStockHint(item) }}</p>
-                    <div class="mt-3 flex flex-wrap gap-2">
+                    <p class="mt-2 text-sm font-bold text-[var(--ui-text-muted)] font-mono">{{ t('cart.priceLabel') }}：<span class="text-[var(--ui-accent)]">{{ formatPrice(item.priceAmount, totalCurrency) }}</span></p>
+                    <p v-if="itemSkuDisplay(item)" class="mt-1 text-xs font-bold text-[var(--ui-text-muted)] font-mono">{{ t('cart.skuLabel') }}：<span class="text-[var(--ui-text-primary)]">{{ itemSkuDisplay(item) }}</span></p>
+                    <p v-if="itemStockHint(item)" class="mt-1 text-xs font-bold text-[var(--ui-warning)] font-mono">{{ itemStockHint(item) }}</p>
+                    <div class="mt-4 flex flex-wrap gap-3">
                       <span
-                        class="theme-badge text-xs uppercase tracking-wider"
+                        class="border border-[var(--ui-warning)] bg-[var(--ui-warning-soft)] text-[var(--ui-warning)] px-2 py-1 text-[10px] font-black uppercase tracking-widest"
                         :class="item.purchaseType === 'guest'
-                          ? 'theme-badge-warning'
-                          : 'theme-badge-success'"
+                          ? 'border-[var(--ui-warning)] text-[var(--ui-warning)]'
+                          : 'border-[var(--ui-success)] text-[var(--ui-success)]'"
                       >
                         {{ item.purchaseType === 'guest' ? t('productPurchase.guest') : t('productPurchase.member') }}
                       </span>
                       <span
-                        class="theme-badge text-xs uppercase tracking-wider"
+                        class="border border-[var(--ui-info)] bg-[var(--ui-info-soft)] text-[var(--ui-info)] px-2 py-1 text-[10px] font-black uppercase tracking-widest"
                         :class="item.fulfillmentType === 'auto'
-                          ? 'theme-badge-info'
-                          : 'theme-badge-neutral'"
+                          ? 'border-[var(--ui-info)] text-[var(--ui-info)]'
+                          : 'border-[var(--ui-text-muted)] text-[var(--ui-text-muted)]'"
                       >
                         {{ item.fulfillmentType === 'auto' ? t('products.fulfillmentType.auto') : t('products.fulfillmentType.manual') }}
                       </span>
@@ -91,37 +94,37 @@
                   </div>
                   <button
                     @click="cartStore.removeItem(item.productId, item.skuId)"
-                    class="text-sm theme-link-muted transition-colors hover:text-red-500"
+                    class="text-sm font-bold text-[var(--ui-text-muted)] hover:text-[var(--ui-danger)] transition-colors uppercase tracking-widest font-mono border-b-2 border-transparent hover:border-[var(--ui-danger)] pb-1"
                   >
                     {{ t('cart.remove') }}
                   </button>
                 </div>
 
-                <div class="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-gray-100 pt-4 dark:border-white/5">
-                  <div class="flex items-center gap-2">
+                <div class="mt-6 flex flex-wrap items-center justify-between gap-4 border-t-2 border-[var(--ui-border)] pt-4">
+                  <div class="flex items-center gap-3">
                     <button
                       @click="updateQty(item, item.quantity - 1)"
                       :disabled="item.quantity <= 1"
-                      class="h-8 w-8 rounded-lg border theme-btn-secondary disabled:cursor-not-allowed disabled:opacity-40"
+                      class="h-10 w-10 border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] text-[var(--ui-text-primary)] font-black hover:border-[var(--ui-accent)] hover:text-[var(--ui-accent)] transition-colors disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-[var(--ui-border)] disabled:hover:text-[var(--ui-text-primary)]"
                     >
                       -
                     </button>
-                    <span class="min-w-[32px] text-center text-sm font-mono theme-text-primary">{{ item.quantity }}</span>
+                    <span class="min-w-[40px] text-center text-lg font-black font-mono text-[var(--ui-text-primary)]">{{ item.quantity }}</span>
                     <button
                       @click="updateQty(item, item.quantity + 1)"
                       :disabled="item.quantity >= itemMaxQuantity(item)"
-                      class="h-8 w-8 rounded-lg border theme-btn-secondary disabled:cursor-not-allowed disabled:opacity-40"
+                      class="h-10 w-10 border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] text-[var(--ui-text-primary)] font-black hover:border-[var(--ui-accent)] hover:text-[var(--ui-accent)] transition-colors disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-[var(--ui-border)] disabled:hover:text-[var(--ui-text-primary)]"
                     >
                       +
                     </button>
                   </div>
 
                   <div class="text-right">
-                    <p class="text-xs uppercase tracking-wider theme-text-muted">{{ t('checkout.previewTotal') }}</p>
-                    <p class="text-sm font-semibold theme-text-primary">{{ itemSubtotal(item) }}</p>
+                    <p class="text-xs font-bold uppercase tracking-widest text-[var(--ui-text-muted)] font-mono">{{ t('checkout.previewTotal') }}</p>
+                    <p class="text-xl font-black text-[var(--ui-accent)] font-mono">{{ itemSubtotal(item) }}</p>
                   </div>
                 </div>
-                <p v-if="quantityWarning(item)" class="mt-3 rounded-lg border theme-alert-warning px-3 py-2 text-xs font-medium">
+                <p v-if="quantityWarning(item)" class="mt-4 border-2 border-[var(--ui-warning)] bg-[var(--ui-warning-soft)] text-[var(--ui-warning)] px-4 py-3 text-xs font-bold uppercase tracking-wider shadow-[4px_4px_0px_var(--ui-warning)]">
                   {{ quantityWarning(item) }}
                 </p>
               </div>
@@ -129,32 +132,32 @@
           </article>
         </div>
 
-        <div class="h-fit rounded-2xl border theme-panel p-6 lg:sticky lg:top-24">
-          <h2 class="mb-4 text-lg font-bold theme-text-primary">{{ t('cart.summaryTitle') }}</h2>
-          <div class="space-y-3 text-sm theme-text-muted">
+        <div class="h-fit border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] p-8 lg:sticky lg:top-24 shadow-[8px_8px_0px_var(--ui-accent)]">
+          <h2 class="mb-6 text-xl font-black text-[var(--ui-accent)] uppercase tracking-widest font-mono border-b-2 border-[var(--ui-border)] pb-4">{{ t('cart.summaryTitle') }}</h2>
+          <div class="space-y-4 text-sm font-bold text-[var(--ui-text-muted)] font-mono">
             <div class="flex items-center justify-between">
-              <span>{{ t('cart.itemsCount') }}</span>
-              <span class="font-mono theme-text-primary">{{ totalItems }}</span>
+              <span class="uppercase tracking-widest">{{ t('cart.itemsCount') }}</span>
+              <span class="font-black text-[var(--ui-text-primary)] text-lg">{{ totalItems }}</span>
             </div>
             <div class="flex items-center justify-between">
-              <span>{{ t('cart.totalLabel') }}</span>
-              <span class="font-mono text-lg font-bold theme-text-primary">{{ formatPrice(totalAmount, totalCurrency) }}</span>
+              <span class="uppercase tracking-widest">{{ t('cart.totalLabel') }}</span>
+              <span class="font-black text-2xl text-[var(--ui-accent)]">{{ formatPrice(totalAmount, totalCurrency) }}</span>
             </div>
-            <div class="rounded-lg border theme-surface-soft p-3 text-xs theme-text-muted">
+            <div class="border-2 border-[var(--ui-border)] bg-[var(--ui-bg-soft)] p-4 text-xs uppercase tracking-wider leading-relaxed">
               {{ t('cart.disclaimer') }}
             </div>
           </div>
 
-          <div class="mt-6 space-y-2">
+          <div class="mt-8 space-y-4">
             <router-link
               to="/checkout"
-              class="theme-btn-block-md theme-btn-primary gap-2 font-semibold transition-colors"
+              class="block w-full text-center px-6 py-4 theme-btn-primary font-bold uppercase tracking-widest text-lg"
             >
               {{ t('cart.checkout') }}
             </router-link>
             <router-link
               to="/products"
-              class="theme-btn-block-md border theme-btn-secondary gap-2 font-semibold transition-colors"
+              class="block w-full text-center px-6 py-4 border-2 border-[var(--ui-border)] bg-transparent text-[var(--ui-text-primary)] font-bold uppercase tracking-widest text-lg hover:border-[var(--ui-accent)] hover:text-[var(--ui-accent)] transition-colors"
             >
               {{ t('cart.emptyAction') }}
             </router-link>

@@ -4,7 +4,7 @@ import { createI18n } from 'vue-i18n'
 const messages = {
     'zh-CN': {
         common: {
-            siteName: '米米小卖部',
+            siteName: '米米商城',
             loading: '加载中...',
             error: '错误',
             success: '成功',
@@ -46,7 +46,7 @@ const messages = {
         },
         home: {
             hero: {
-                title: '米米小卖部 · mmi.zone',
+                title: '米米商城 · mmi.zone',
                 subtitle: '专业的产品与服务提供商',
                 cta: '浏览商品',
                 badge: '新一代数字商店',
@@ -114,8 +114,8 @@ const messages = {
         },
         about: {
             title: '关于我们',
-            subtitle: '了解米米小卖部',
-            introduction: '米米小卖部（mmi.zone）是一家专注于数字资源自动交付的平台，致力于提供高质量学习资料、软件与账号服务。我们坚持专业、高效与稳定，为用户提供更便捷的获取体验。',
+            subtitle: '了解米米商城',
+            introduction: '米米商城（mmi.zone）是一家专注于数字资源自动交付的平台，致力于提供高质量学习资料、软件与账号服务。我们坚持专业、高效与稳定，为用户提供更便捷的获取体验。',
             ourServices: '我们的服务',
             service1: '优质商品推荐与销售',
             service2: '专业的售前咨询服务',
@@ -131,6 +131,10 @@ const messages = {
             guestOrders: '游客查单',
             logout: '退出',
             selectLanguage: '选择语言',
+            selectTheme: '主题模式',
+            themeSystem: '跟随系统',
+            themeLight: '浅色',
+            themeDark: '深色',
         },
         personalCenter: {
             title: '个人中心',
@@ -663,7 +667,7 @@ const messages = {
         },
         notFound: {
             title: '页面未找到',
-            description: '你访问的页面不存在或已移动，请返回首页继续浏览米米小卖部。',
+            description: '你访问的页面不存在或已移动，请返回首页继续浏览米米商城。',
             backHome: '返回首页',
             browseProducts: '浏览商品',
         },
@@ -694,7 +698,7 @@ const messages = {
     },
     'zh-TW': {
         common: {
-            siteName: '米米小賣部',
+            siteName: '米米商城',
             loading: '載入中...',
             error: '錯誤',
             success: '成功',
@@ -736,7 +740,7 @@ const messages = {
         },
         home: {
             hero: {
-                title: '米米小賣部 · mmi.zone',
+                title: '米米商城 · mmi.zone',
                 subtitle: '專業的產品與服務提供商',
                 cta: '瀏覽商品',
                 badge: '新一代數位商店',
@@ -828,8 +832,8 @@ const messages = {
         },
         about: {
             title: '關於我們',
-            subtitle: '了解米米小賣部',
-            introduction: '米米小賣部（mmi.zone）是專注於數位資源自動交付的平台，致力於提供高品質學習資料、軟體與帳號服務。我們堅持專業、高效與穩定，為使用者提供更便捷的取得體驗。',
+            subtitle: '了解米米商城',
+            introduction: '米米商城（mmi.zone）是專注於數位資源自動交付的平台，致力於提供高品質學習資料、軟體與帳號服務。我們堅持專業、高效與穩定，為使用者提供更便捷的取得體驗。',
             ourServices: '我們的服務',
             service1: '優質商品推薦與銷售',
             service2: '專業的售前諮詢服務',
@@ -845,6 +849,10 @@ const messages = {
             guestOrders: '遊客查單',
             logout: '退出',
             selectLanguage: '選擇語言',
+            selectTheme: '主題模式',
+            themeSystem: '跟隨系統',
+            themeLight: '淺色',
+            themeDark: '深色',
         },
         personalCenter: {
             title: '個人中心',
@@ -1377,7 +1385,7 @@ const messages = {
         },
         notFound: {
             title: '頁面不存在',
-            description: '你造訪的頁面不存在或已移動，請返回首頁繼續瀏覽米米小賣部。',
+            description: '你造訪的頁面不存在或已移動，請返回首頁繼續瀏覽米米商城。',
             backHome: '返回首頁',
             browseProducts: '瀏覽商品',
         },
@@ -1535,6 +1543,10 @@ const messages = {
             guestOrders: 'Guest Lookup',
             logout: 'Logout',
             selectLanguage: 'Select Language',
+            selectTheme: 'Theme Mode',
+            themeSystem: 'System',
+            themeLight: 'Light',
+            themeDark: 'Dark',
         },
         personalCenter: {
             title: 'Personal Center',
@@ -2074,9 +2086,13 @@ const messages = {
     },
 }
 
+const normalizeLocale = (value: string | null | undefined) => {
+    return value === 'zh-CN' || value === 'zh-TW' || value === 'en-US' ? value : 'zh-CN'
+}
+
 const i18n = createI18n({
     legacy: false,
-    locale: localStorage.getItem('locale') || 'zh-CN',
+    locale: normalizeLocale(localStorage.getItem('locale')),
     fallbackLocale: 'zh-CN',
     messages,
 })

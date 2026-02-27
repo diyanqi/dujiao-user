@@ -64,7 +64,7 @@
           <!-- Footer -->
           <footer class="mt-16 pt-12 border-t theme-border flex justify-center">
             <router-link :to="backLink"
-              class="group inline-flex items-center space-x-3 theme-link-muted px-6 py-3 border theme-btn-secondary rounded-full">
+              class="group inline-flex items-center space-x-3 theme-link-muted px-6 py-3 border-2 theme-btn-secondary">
               <svg class="w-5 h-5 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor"
                 viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -77,7 +77,7 @@
 
       <!-- Error State -->
       <div v-else
-        class="text-center py-24 theme-panel rounded-3xl border backdrop-blur-sm">
+        class="text-center py-24 theme-panel border-2">
         <svg class="w-20 h-20 mx-auto theme-text-muted mb-6" fill="none" stroke="currentColor"
           viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
@@ -87,7 +87,7 @@
           {{ t('blogDetail.notFound') }}
         </p>
         <router-link to="/blog"
-          class="inline-block theme-btn-primary px-8 py-3 rounded-full font-bold hover:scale-105 transition-transform">
+          class="inline-block theme-btn-primary px-8 py-3 border-2 font-black uppercase tracking-widest hover:scale-105 transition-transform">
           {{ t('blogDetail.backToBlog') }}
         </router-link>
       </div>

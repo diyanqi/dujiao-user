@@ -1,16 +1,16 @@
 <template>
   <div
-    class="product-detail-page min-h-screen theme-page pt-24 pb-16">
+    class="product-detail-page min-h-screen theme-page pt-24 pb-16 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+CjxwYXRoIGQ9Ik0wIDBoNDB2NDBIMHoiIGZpbGw9Im5vbmUiLz4KPHBhdGggZD0iTTAgMTBoNDBNMTAgMHY0ME0wIDIwaDQwTTIwIDB2NDBNMCAzMGg0ME0zMCAwdjQwIiBzdHJva2U9InJnYmEoMCwgMjU1LCAyMDQsIDAuMDUpIiBzdHJva2Utd2lkdGg9IjEiLz4KPC9zdmc+')]">
     <div class="container mx-auto px-4">
       <!-- Loading State -->
       <div v-if="loading" class="animate-pulse space-y-8">
-        <div class="h-8 theme-surface-muted rounded w-1/3"></div>
+        <div class="h-8 bg-[var(--ui-bg-soft)] border-2 border-[var(--ui-border)] w-1/3"></div>
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          <div class="h-[500px] theme-surface-muted rounded-2xl"></div>
+          <div class="h-[500px] bg-[var(--ui-bg-soft)] border-2 border-[var(--ui-border)]"></div>
           <div class="space-y-6">
-            <div class="h-10 theme-surface-muted rounded w-3/4"></div>
-            <div class="h-6 theme-surface-muted rounded w-1/2"></div>
-            <div class="h-32 theme-surface-muted rounded"></div>
+            <div class="h-10 bg-[var(--ui-bg-soft)] border-2 border-[var(--ui-border)] w-3/4"></div>
+            <div class="h-6 bg-[var(--ui-bg-soft)] border-2 border-[var(--ui-border)] w-1/2"></div>
+            <div class="h-32 bg-[var(--ui-bg-soft)] border-2 border-[var(--ui-border)]"></div>
           </div>
         </div>
       </div>
@@ -18,29 +18,31 @@
       <!-- Product Content -->
       <div v-else-if="product">
         <!-- Breadcrumb -->
-        <nav class="mb-8 flex items-center space-x-2 text-sm theme-text-muted font-medium">
-          <router-link to="/" class="theme-link-muted">{{ t('nav.home')
+        <nav class="mb-8 flex items-center space-x-3 text-xs font-black uppercase tracking-widest font-mono">
+          <router-link to="/" class="text-[var(--ui-text-muted)] hover:text-[var(--ui-accent)] transition-colors">{{ t('nav.home')
           }}</router-link>
-          <span>/</span>
-          <router-link to="/products" class="theme-link-muted">{{
+          <span class="text-[var(--ui-accent)]">//</span>
+          <router-link to="/products" class="text-[var(--ui-text-muted)] hover:text-[var(--ui-accent)] transition-colors">{{
             t('nav.products') }}</router-link>
-          <span>/</span>
-          <span class="theme-text-primary truncate max-w-[200px]">{{ getLocalizedText(product.title)
+          <span class="text-[var(--ui-accent)]">//</span>
+          <span class="text-[var(--ui-text-primary)] truncate max-w-[200px]">{{ getLocalizedText(product.title)
           }}</span>
         </nav>
 
         <!-- Main Info Card -->
         <div
-          class="theme-panel backdrop-blur-xl border rounded-3xl overflow-hidden mb-8 shadow-2xl">
+          class="theme-panel border-2 border-[var(--ui-border)] mb-8 shadow-[8px_8px_0px_var(--ui-accent)] relative">
+          <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[var(--ui-accent)] to-transparent opacity-50"></div>
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
             <!-- Product Images (Left) -->
-            <div class="p-8 theme-surface-soft border-r theme-border">
-              <div class="mb-6 relative group">
+            <div class="p-8 bg-[var(--ui-bg-soft)] border-r-2 border-[var(--ui-border)] relative overflow-hidden">
+              <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSJub25lIi8+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9InJnYmEoMCwgMjU1LCAyMDQsIDAuMDUpIi8+Cjwvc3ZnPg==')]"></div>
+              <div class="mb-6 relative group z-10">
                 <img v-if="currentImage" :src="currentImage" :alt="getLocalizedText(product.title)"
-                  class="w-full h-[400px] lg:h-[500px] object-cover rounded-xl border theme-border relative z-10 shadow-lg" />
+                  class="w-full h-[400px] lg:h-[500px] object-cover border-2 border-[var(--ui-border)] shadow-[4px_4px_0px_var(--ui-border)] mix-blend-luminosity hover:mix-blend-normal transition-all duration-500" />
                 <div v-else
-                  class="w-full h-[400px] lg:h-[500px] theme-surface-muted rounded-xl border theme-border flex items-center justify-center relative z-10">
-                  <svg class="w-24 h-24 theme-text-muted" fill="currentColor" viewBox="0 0 20 20">
+                  class="w-full h-[400px] lg:h-[500px] bg-[var(--ui-bg-elevated)] border-2 border-[var(--ui-border)] flex items-center justify-center shadow-[4px_4px_0px_var(--ui-border)]">
+                  <svg class="w-24 h-24 text-[var(--ui-text-muted)]" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd"
                       d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
                       clip-rule="evenodd" />
@@ -49,49 +51,49 @@
               </div>
 
               <!-- Thumbnail Gallery -->
-              <div v-if="images.length > 1" class="grid grid-cols-5 gap-3">
+              <div v-if="images.length > 1" class="grid grid-cols-5 gap-4 relative z-10">
                 <div v-for="(image, index) in images" :key="index" @click="currentImage = image"
-                  class="cursor-pointer rounded-lg overflow-hidden border-2 transition-all duration-300 aspect-w-1 aspect-h-1"
-                  :class="currentImage === image ? 'theme-thumb-selected opacity-100' : 'border-transparent opacity-60 hover:opacity-100 hover:scale-105'">
-                  <img :src="image" :alt="`Image ${index + 1}`" class="w-full h-full object-cover" />
+                  class="cursor-pointer overflow-hidden border-2 transition-all duration-300 aspect-w-1 aspect-h-1"
+                  :class="currentImage === image ? 'border-[var(--ui-accent)] shadow-[2px_2px_0px_var(--ui-accent)] opacity-100' : 'border-[var(--ui-border)] opacity-60 hover:opacity-100 hover:border-[var(--ui-accent)]'">
+                  <img :src="image" :alt="`Image ${index + 1}`" class="w-full h-full object-cover mix-blend-luminosity hover:mix-blend-normal" />
                 </div>
               </div>
             </div>
 
             <!-- Product Info (Right) -->
-            <div class="p-8 lg:p-12 flex flex-col justify-center">
+            <div class="p-8 lg:p-12 flex flex-col justify-center bg-[var(--ui-bg-elevated)]">
               <div class="mb-6">
-                <div v-if="categoryName" class="mb-3 text-xs uppercase tracking-wider theme-text-muted">
-                  {{ t('productDetail.categoryLabel') }} · {{ categoryName }}
+                <div v-if="categoryName" class="mb-4 text-[10px] font-black uppercase tracking-widest text-[var(--ui-accent)] font-mono">
+                  {{ t('productDetail.categoryLabel') }} // {{ categoryName }}
                 </div>
 
-                <div v-if="product.tags && product.tags.length > 0" class="mb-4 flex flex-wrap gap-2">
+                <div v-if="product.tags && product.tags.length > 0" class="mb-6 flex flex-wrap gap-3">
                   <span
                     v-for="(tag, index) in product.tags"
                     :key="index"
-                    class="theme-badge theme-badge-neutral px-3 py-1 text-xs"
+                    class="border border-[var(--ui-accent)] bg-[var(--ui-bg-elevated)] text-[var(--ui-accent)] px-2 py-1 text-[10px] font-bold uppercase tracking-wider shadow-[2px_2px_0px_var(--ui-accent)]"
                   >
                     {{ tag }}
                   </span>
                 </div>
 
-                <h1 class="mb-4 text-3xl font-black leading-tight theme-text-primary md:text-5xl">
+                <h1 class="mb-6 text-4xl font-black leading-tight theme-text-primary md:text-5xl uppercase tracking-wide" style="font-family: 'Space Grotesk', sans-serif;">
                   {{ getLocalizedText(product.title) }}
                 </h1>
 
-                <div class="mb-6 flex flex-wrap items-center gap-2">
+                <div class="mb-8 flex flex-wrap items-center gap-3">
                   <span
-                    class="theme-badge"
+                    class="border border-[var(--ui-warning)] bg-[var(--ui-warning-soft)] text-[var(--ui-warning)] px-3 py-1.5 text-xs font-bold uppercase tracking-wider flex items-center"
                     :class="product.purchase_type === 'guest'
-                      ? 'theme-badge-warning'
-                      : 'theme-badge-success'"
+                      ? 'border-[var(--ui-warning)] text-[var(--ui-warning)]'
+                      : 'border-[var(--ui-success)] text-[var(--ui-success)]'"
                   >
-                    <svg v-if="product.purchase_type === 'guest'" class="mr-1 h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <svg v-if="product.purchase_type === 'guest'" class="mr-2 h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2" />
                       <circle cx="9.5" cy="7" r="3" stroke-width="2" />
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 8l2 2-2 2" />
                     </svg>
-                    <svg v-else class="mr-1 h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <svg v-else class="mr-2 h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                       <rect x="3" y="11" width="18" height="10" rx="2" ry="2" stroke-width="2" />
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11V8a5 5 0 0110 0v3" />
                     </svg>
@@ -99,98 +101,98 @@
                   </span>
 
                   <span
-                    class="theme-badge"
+                    class="border border-[var(--ui-info)] bg-[var(--ui-info-soft)] text-[var(--ui-info)] px-3 py-1.5 text-xs font-bold uppercase tracking-wider flex items-center"
                     :class="product.fulfillment_type === 'auto'
-                      ? 'theme-badge-info'
-                      : 'theme-badge-neutral'"
+                      ? 'border-[var(--ui-info)] text-[var(--ui-info)]'
+                      : 'border-[var(--ui-text-muted)] text-[var(--ui-text-muted)]'"
                   >
-                    <svg v-if="product.fulfillment_type === 'auto'" class="mr-1 h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <svg v-if="product.fulfillment_type === 'auto'" class="mr-2 h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" />
                     </svg>
-                    <svg v-else class="mr-1 h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <svg v-else class="mr-2 h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.7 6.3l3 3m-9.4 9.4l-4 1 1-4 9.9-9.9a2.1 2.1 0 013 3L8.3 18.7z" />
                     </svg>
                     {{ getFulfillmentTypeLabel(product.fulfillment_type) }}
                   </span>
 
                   <span
-                    class="theme-badge"
+                    class="border border-[var(--ui-warning)] bg-[var(--ui-warning-soft)] text-[var(--ui-warning)] px-3 py-1.5 text-xs font-bold uppercase tracking-wider"
                     :class="getStockBadgeClass(product.stock_status)"
                   >
                     {{ getStockStatusLabel(product) }}
                   </span>
                 </div>
 
-                <div class="mb-8 border-b theme-border pb-8">
-                  <div class="mb-3 flex flex-wrap items-center gap-2">
-                    <span class="text-sm theme-text-muted">{{ t('products.price') }}</span>
-                    <span v-if="!selectedSku && hasPromotionPrice(product)" class="theme-badge theme-badge-danger">
+                <div class="mb-8 border-b-2 border-[var(--ui-border)] pb-8">
+                  <div class="mb-3 flex flex-wrap items-center gap-3">
+                    <span class="text-xs font-black uppercase tracking-widest text-[var(--ui-text-muted)] font-mono">{{ t('products.price') }}</span>
+                    <span v-if="!selectedSku && hasPromotionPrice(product)" class="border border-[var(--ui-danger)] bg-[var(--ui-danger)] text-[var(--ui-text-on-accent)] px-2 py-1 text-[10px] font-bold uppercase tracking-wider animate-pulse">
                       {{ t('products.promotionTag') }}
                     </span>
                   </div>
                   <div v-if="selectedSku" class="flex items-end gap-4">
                     <span
-                      class="text-5xl font-mono font-bold theme-text-accent">
+                      class="text-6xl font-black font-mono text-[var(--ui-accent)]" style="text-shadow: 2px 2px 0px var(--ui-accent-soft);">
                       {{ formatPrice(selectedSku.price_amount, siteCurrency) }}
                     </span>
                   </div>
                   <div v-else-if="hasPromotionPrice(product)" class="space-y-2">
                     <div class="flex flex-wrap items-end gap-4">
-                      <span class="text-5xl font-mono font-bold text-rose-600 dark:text-rose-300">
+                      <span class="text-6xl font-black font-mono text-[var(--ui-danger)]" style="text-shadow: 2px 2px 0px var(--ui-danger-soft);">
                         {{ formatPrice(getPromotionPriceAmount(product), siteCurrency) }}
                       </span>
-                      <span class="text-base font-medium theme-text-muted opacity-80 line-through">
+                      <span class="text-xl font-bold theme-text-muted opacity-80 line-through font-mono">
                         {{ formatPrice(product.price_amount, siteCurrency) }}
                       </span>
                     </div>
-                    <p class="text-sm font-medium text-rose-500 dark:text-rose-300">
+                    <p class="text-sm font-bold text-[var(--ui-danger)] uppercase tracking-wider">
                       {{ t('products.saveAmount') }} {{ formatPrice(getPromotionSaveAmount(product), siteCurrency) }}
                     </p>
                   </div>
                   <div v-else class="flex items-end gap-4">
                     <span
-                      class="text-5xl font-mono font-bold theme-text-accent">
+                      class="text-6xl font-black font-mono text-[var(--ui-accent)]" style="text-shadow: 2px 2px 0px var(--ui-accent-soft);">
                       {{ formatPrice(product.price_amount, siteCurrency) }}
                     </span>
                   </div>
                 </div>
 
                 <div v-if="activeSkus.length" class="mb-8">
-                  <h2 class="mb-3 text-sm font-bold uppercase tracking-widest theme-text-muted">
+                  <h2 class="mb-4 text-sm font-black uppercase tracking-widest text-[var(--ui-accent)] font-mono">
                     {{ t('productDetail.skuTitle') }}
                   </h2>
-                  <div class="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                  <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
                     <button
                       v-for="sku in activeSkus"
                       :key="sku.id"
                       type="button"
-                      class="flex flex-col items-start rounded-xl border px-3 py-2 text-sm transition-all"
+                      class="flex flex-col items-start border-2 px-4 py-3 text-sm transition-all duration-300"
                       :class="[
-                        normalizeSkuId(sku.id) === selectedSkuId ? 'theme-selected-surface ring-1 ring-primary/30' : 'theme-btn-secondary',
-                        isSkuPurchasable(sku) ? 'hover:-translate-y-0.5' : 'cursor-not-allowed opacity-55 border-dashed',
+                        normalizeSkuId(sku.id) === selectedSkuId ? 'border-[var(--ui-accent)] bg-[var(--ui-accent-soft)] text-[var(--ui-accent)] shadow-[4px_4px_0px_var(--ui-accent)] translate-x-1' : 'border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] text-[var(--ui-text-secondary)] hover:border-[var(--ui-accent)] hover:text-[var(--ui-accent)]',
+                        isSkuPurchasable(sku) ? '' : 'cursor-not-allowed opacity-50 border-dashed',
                       ]"
                       :disabled="!isSkuPurchasable(sku)"
                       @click="selectedSkuId = normalizeSkuId(sku.id)"
                     >
-                      <span class="font-semibold leading-tight">{{ skuDisplayText(sku) }}</span>
+                      <span class="font-bold leading-tight uppercase tracking-wide">{{ skuDisplayText(sku) }}</span>
                       <span
-                        class="mt-1 rounded-full border px-2 py-0.5 text-[11px]"
+                        class="mt-2 border px-2 py-1 text-[10px] font-bold uppercase tracking-wider"
                         :class="skuStockBadgeClass(sku)"
                       >
                         {{ skuStockText(sku) }}
                       </span>
                     </button>
                   </div>
-                  <p v-if="requiresSKUSelection" class="mt-2 text-xs text-amber-500">
+                  <p v-if="requiresSKUSelection" class="mt-3 text-xs font-bold text-[var(--ui-warning)] uppercase tracking-wider animate-pulse">
                     {{ t('productDetail.skuRequired') }}
                   </p>
                 </div>
 
                 <div class="mb-8">
-                  <h2 class="mb-3 text-sm font-bold uppercase tracking-widest theme-text-muted">
+                  <h2 class="mb-4 text-sm font-black uppercase tracking-widest text-[var(--ui-accent)] font-mono">
                     {{ t('productDetail.description') }}
                   </h2>
-                  <p class="text-lg leading-relaxed theme-text-secondary">
+                  <p class="text-lg leading-relaxed theme-text-secondary font-medium border-l-4 border-[var(--ui-accent)] pl-4 bg-[var(--ui-bg-soft)] p-4">
                     {{ getLocalizedText(product.description) }}
                   </p>
                 </div>
@@ -198,25 +200,25 @@
 
               <!-- Purchase Actions -->
               <div class="mt-auto space-y-6">
-                <p v-if="cannotPurchaseReason" class="rounded-xl border theme-alert-danger px-4 py-3 text-sm font-semibold">
+                <p v-if="cannotPurchaseReason" class="border-2 border-[var(--ui-danger)] bg-[var(--ui-danger-soft)] text-[var(--ui-danger)] px-4 py-3 text-sm font-bold uppercase tracking-wider shadow-[4px_4px_0px_var(--ui-danger)]">
                   {{ cannotPurchaseReason }}
                 </p>
-                <p v-if="purchaseWarning" class="rounded-xl border theme-alert-warning px-4 py-3 text-sm font-semibold">
+                <p v-if="purchaseWarning" class="border-2 border-[var(--ui-warning)] bg-[var(--ui-warning-soft)] text-[var(--ui-warning)] px-4 py-3 text-sm font-bold uppercase tracking-wider shadow-[4px_4px_0px_var(--ui-warning)]">
                   {{ purchaseWarning }}
                 </p>
 
-                <div class="space-y-3">
+                <div class="space-y-4">
                   <button v-if="requiresLogin" @click="goLogin"
-                    class="w-full px-6 py-4 theme-btn-primary font-bold rounded-xl transition-colors">
+                    class="w-full px-6 py-4 theme-btn-primary font-bold uppercase tracking-widest text-lg">
                     {{ t('productDetail.loginToBuy') }}
                   </button>
                   <div v-else class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <button @click="addToCart" :disabled="!canPurchase"
-                      class="px-6 py-4 border theme-btn-secondary font-bold rounded-xl disabled:cursor-not-allowed disabled:opacity-50">
+                      class="px-6 py-4 border-2 border-[var(--ui-accent)] bg-transparent text-[var(--ui-accent)] font-bold uppercase tracking-widest text-lg hover:bg-[var(--ui-accent)] hover:text-[var(--ui-text-on-accent)] transition-all duration-300 shadow-[4px_4px_0px_var(--ui-accent)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-x-0 disabled:hover:translate-y-0 disabled:hover:shadow-[4px_4px_0px_var(--ui-accent)] disabled:hover:bg-transparent disabled:hover:text-[var(--ui-accent)]">
                       {{ t('productDetail.addToCart') }}
                     </button>
                     <button @click="buyNow" :disabled="!canPurchase"
-                      class="px-6 py-4 theme-btn-primary font-bold rounded-xl transition-colors disabled:cursor-not-allowed disabled:opacity-50">
+                      class="px-6 py-4 theme-btn-primary font-bold uppercase tracking-widest text-lg disabled:cursor-not-allowed disabled:opacity-50">
                       {{ t('productDetail.buyNow') }}
                     </button>
                   </div>
@@ -229,22 +231,22 @@
 
         <!-- Details Content Card -->
         <div v-if="product.content"
-          class="theme-panel backdrop-blur-xl border rounded-3xl overflow-hidden mb-12 p-8 lg:p-12 relative">
+          class="theme-panel border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] mb-12 p-8 lg:p-12 relative shadow-[8px_8px_0px_var(--ui-accent)]">
           <h2
-            class="text-2xl font-bold mb-8 theme-text-primary flex items-center gap-3 border-b theme-border pb-6">
-            <span class="w-1.5 h-8 theme-accent-stick rounded-full"></span>
+            class="text-2xl font-black mb-8 text-[var(--ui-accent)] flex items-center gap-4 border-b-4 border-[var(--ui-border)] pb-6 uppercase tracking-widest font-mono">
+            <span class="w-4 h-8 bg-[var(--ui-accent)]"></span>
             {{ t('productDetail.details') }}
           </h2>
           <div v-html="processHtmlForDisplay(getLocalizedText(product.content))"
-            class="prose prose-gray dark:prose-invert prose-lg max-w-none theme-prose">
+            class="prose prose-gray dark:prose-invert prose-lg max-w-none theme-prose font-mono">
           </div>
         </div>
 
         <!-- Back Button -->
         <div class="mb-12 text-center">
           <router-link to="/products"
-            class="inline-flex items-center space-x-2 theme-link-muted transition-colors border-b border-transparent hover:border-current pb-1">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            class="inline-flex items-center space-x-3 text-[var(--ui-text-muted)] hover:text-[var(--ui-accent)] transition-colors font-bold uppercase tracking-widest font-mono">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
             </svg>
             <span>{{ t('productDetail.backToProducts') }}</span>
@@ -254,17 +256,17 @@
 
       <!-- Error State -->
       <div v-else
-        class="text-center py-24 theme-panel rounded-3xl border backdrop-blur-sm">
-        <svg class="w-20 h-20 mx-auto theme-text-muted mb-6" fill="none" stroke="currentColor"
+        class="text-center py-24 theme-panel border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] shadow-[8px_8px_0px_var(--ui-accent)]">
+        <svg class="w-24 h-24 mx-auto text-[var(--ui-text-muted)] mb-8" fill="none" stroke="currentColor"
           viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
             d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
-        <p class="theme-text-muted text-xl mb-8">
+        <p class="text-[var(--ui-text-muted)] text-2xl mb-8 font-bold uppercase tracking-widest font-mono">
           {{ t('productDetail.notFound') }}
         </p>
         <router-link to="/products"
-          class="inline-block theme-btn-primary px-8 py-3 rounded-full font-bold hover:scale-105 transition-transform">
+          class="inline-block theme-btn-primary px-8 py-4 font-bold uppercase tracking-widest text-lg">
           {{ t('productDetail.backToProducts') }}
         </router-link>
       </div>

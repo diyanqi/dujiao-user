@@ -23,16 +23,16 @@
             class="form-input-lg"
             :placeholder="t('guestOrders.passwordPlaceholder')" />
         </div>
-        <div v-if="authError" class="text-red-400 text-sm mt-4 bg-red-500/10 border border-red-500/20 rounded-lg p-3">
+        <div v-if="authError" class="theme-alert-danger text-sm mt-4 border-2 p-3 font-mono font-bold">
           {{ authError }}
         </div>
         <div class="mt-4 flex items-center gap-3">
           <button @click="handleAuthSubmit"
-            class="px-4 py-2 rounded-lg theme-btn-primary font-bold text-sm">
+            class="px-4 py-2 border-2 theme-btn-primary font-black text-sm uppercase tracking-widest">
             {{ t('guestOrderDetail.authSubmit') }}
           </button>
           <button type="button" @click="clearAuth"
-            class="text-xs theme-link-muted underline decoration-gray-300 dark:decoration-white/20">
+            class="text-xs theme-link-muted underline font-mono">
             {{ t('guestOrderDetail.authClear') }}
           </button>
         </div>
@@ -65,7 +65,7 @@
                 {{ statusLabel(order.status) }}
               </span>
               <router-link v-if="order.status === 'pending_payment'" :to="`/pay?guest=1&order_no=${order.order_no}`"
-                class="px-4 py-2 rounded-lg theme-btn-primary font-bold text-sm">
+                class="px-4 py-2 border-2 theme-btn-primary font-black text-sm uppercase tracking-widest">
                 {{ t('orders.payNow') }}
               </router-link>
             </div>
@@ -119,7 +119,7 @@
           <h2 class="text-lg font-bold mb-4">{{ t('orderDetail.itemsTitle') }}</h2>
           <div v-if="order.items && order.items.length > 0" class="space-y-4">
             <div v-for="item in order.items" :key="item.id"
-              class="flex items-center justify-between border-b border-gray-100 dark:border-white/5 pb-3">
+              class="flex items-center justify-between border-b-2 border-[var(--ui-border)] pb-3">
               <div>
                 <div class="theme-text-primary font-medium">{{ getLocalizedText(item.title) }}</div>
                 <div class="text-xs theme-text-muted">{{ t('orderDetail.quantityLabel') }}：{{ item.quantity }}</div>
@@ -129,15 +129,15 @@
                 </div>
                 <div v-if="item.tags && item.tags.length" class="mt-2 flex flex-wrap gap-2">
                   <span v-for="(tag, index) in item.tags" :key="index"
-                    class="px-2 py-0.5 text-[11px] rounded-full theme-surface-muted border theme-text-muted">
+                    class="px-2 py-0.5 text-[11px] border-2 border-[var(--ui-border)] theme-surface-muted theme-text-muted font-mono uppercase tracking-wider">
                     {{ tag }}
                   </span>
                 </div>
                 <div v-if="manualSubmissionRows(item.manual_form_submission).length"
-                  class="mt-3 rounded-xl border border-gray-200 bg-white p-3 text-xs text-gray-600 dark:border-white/10 dark:bg-black/30 dark:text-gray-300">
-                  <div class="mb-2 font-semibold theme-text-secondary">{{ t('orderDetail.manualSubmissionTitle') }}</div>
+                  class="mt-3 border-2 border-[var(--ui-border)] bg-[var(--ui-bg-soft)] p-3 text-xs theme-text-secondary font-mono">
+                  <div class="mb-2 font-black uppercase tracking-wider">{{ t('orderDetail.manualSubmissionTitle') }}</div>
                   <div v-for="row in manualSubmissionRows(item.manual_form_submission)" :key="`${item.id}-${row.key}`" class="mb-1 last:mb-0">
-                    <span class="theme-text-primary">{{ row.key }}</span>：{{ row.value }}
+                    <span class="theme-text-primary font-black">{{ row.key }}</span>：{{ row.value }}
                   </div>
                 </div>
               </div>
@@ -180,7 +180,7 @@
                   }}</h3>
                 <div v-if="child.items && child.items.length" class="space-y-3">
                   <div v-for="item in child.items" :key="item.id"
-                    class="flex items-center justify-between border-b border-gray-100 dark:border-white/5 pb-3 text-sm theme-text-muted">
+                    class="flex items-center justify-between border-b-2 border-[var(--ui-border)] pb-3 text-sm theme-text-muted">
                     <div>
                       <div class="theme-text-primary font-medium">{{ getLocalizedText(item.title) }}</div>
                       <div class="text-xs theme-text-muted">{{ t('orderDetail.quantityLabel') }}：{{ item.quantity }}</div>
@@ -190,15 +190,15 @@
                       </div>
                       <div v-if="item.tags && item.tags.length" class="mt-2 flex flex-wrap gap-2">
                         <span v-for="(tag, index) in item.tags" :key="index"
-                          class="px-2 py-0.5 text-[11px] rounded-full theme-surface-muted border theme-text-muted">
+                          class="px-2 py-0.5 text-[11px] border-2 border-[var(--ui-border)] theme-surface-muted theme-text-muted font-mono uppercase tracking-wider">
                           {{ tag }}
                         </span>
                       </div>
                       <div v-if="manualSubmissionRows(item.manual_form_submission).length"
-                        class="mt-3 rounded-xl border border-gray-200 bg-white p-3 text-xs text-gray-600 dark:border-white/10 dark:bg-black/30 dark:text-gray-300">
-                        <div class="mb-2 font-semibold theme-text-secondary">{{ t('orderDetail.manualSubmissionTitle') }}</div>
+                        class="mt-3 border-2 border-[var(--ui-border)] bg-[var(--ui-bg-soft)] p-3 text-xs theme-text-secondary font-mono">
+                        <div class="mb-2 font-black uppercase tracking-wider">{{ t('orderDetail.manualSubmissionTitle') }}</div>
                         <div v-for="row in manualSubmissionRows(item.manual_form_submission)" :key="`${item.id}-${row.key}`" class="mb-1 last:mb-0">
-                          <span class="theme-text-primary">{{ row.key }}</span>：{{ row.value }}
+                          <span class="theme-text-primary font-black">{{ row.key }}</span>：{{ row.value }}
                         </div>
                       </div>
                     </div>

@@ -1,12 +1,13 @@
 <template>
   <div
-    class="products-page min-h-screen theme-page pt-20 pb-16">
+    class="products-page min-h-screen theme-page pt-20 pb-16 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+CjxwYXRoIGQ9Ik0wIDBoNDB2NDBIMHoiIGZpbGw9Im5vbmUiLz4KPHBhdGggZD0iTTAgMTBoNDBNMTAgMHY0ME0wIDIwaDQwTTIwIDB2NDBNMCAzMGg0ME0zMCAwdjQwIiBzdHJva2U9InJnYmEoMCwgMjU1LCAyMDQsIDAuMDUpIiBzdHJva2Utd2lkdGg9IjEiLz4KPC9zdmc+')]">
     <div class="container mx-auto px-4">
       <!-- Page Header -->
-      <div class="mb-12 mt-12 text-center">
-        <h1 class="text-4xl md:text-5xl font-black mb-4 tracking-tight theme-text-primary">{{ t('nav.products') }}</h1>
+      <div class="mb-12 mt-12 text-center relative">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-16 bg-[var(--ui-accent)] blur-[100px] opacity-30"></div>
+        <h1 class="text-4xl md:text-6xl font-black mb-4 tracking-widest uppercase theme-text-primary relative z-10" style="font-family: 'Orbitron', sans-serif; text-shadow: 4px 4px 0px var(--ui-accent);">{{ t('nav.products') }}</h1>
         <p
-          class="theme-text-secondary max-w-2xl mx-auto text-lg border-b theme-border pb-8">
+          class="theme-text-secondary max-w-2xl mx-auto text-lg border-b-2 border-[var(--ui-border)] pb-8 font-bold uppercase tracking-wider relative z-10">
           {{ t('products.subtitle') }}
         </p>
       </div>
@@ -15,41 +16,41 @@
         <!-- Sidebar - Categories -->
         <aside class="lg:w-64 flex-shrink-0">
           <div
-            class="theme-panel backdrop-blur-xl border rounded-2xl p-6 sticky top-24">
+            class="theme-panel border-2 border-[var(--ui-border)] p-6 sticky top-24 shadow-[6px_6px_0px_var(--ui-accent)]">
             <div class="mb-6">
-              <label class="text-xs font-semibold uppercase tracking-wider theme-text-muted">
+              <label class="text-xs font-black uppercase tracking-widest text-[var(--ui-accent)] mb-2 block">
                 {{ t('products.searchLabel') }}
               </label>
               <div class="mt-3 flex items-center gap-2">
                 <input v-model="searchQuery" type="text"
-                  class="min-w-0 flex-1 form-input"
+                  class="min-w-0 flex-1 form-input border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] focus:border-[var(--ui-accent)] focus:ring-0 rounded-none font-mono"
                   :placeholder="t('products.searchPlaceholder')" />
                 <button v-if="searchQuery" type="button" @click="clearSearch"
-                  class="shrink-0 whitespace-nowrap px-3 py-2.5 rounded-xl border theme-btn-secondary text-xs">
+                  class="shrink-0 whitespace-nowrap px-3 py-2.5 border-2 border-[var(--ui-danger)] text-[var(--ui-danger)] hover:bg-[var(--ui-danger)] hover:text-[var(--ui-text-on-accent)] text-xs font-bold uppercase tracking-widest transition-colors">
                   {{ t('common.cancel') }}
                 </button>
               </div>
             </div>
-            <h2 class="text-lg font-bold mb-6 theme-text-primary flex items-center gap-2">
-              <span class="w-1 h-5 theme-accent-stick rounded-full"></span>
+            <h2 class="text-lg font-black mb-6 theme-text-primary flex items-center gap-3 uppercase tracking-widest" style="font-family: 'Orbitron', sans-serif;">
+              <span class="w-3 h-3 bg-[var(--ui-success)] animate-pulse"></span>
               {{ t('products.categories') }}
             </h2>
-            <ul class="space-y-2">
+            <ul class="space-y-3">
               <li>
                 <button @click="selectedCategory = null"
-                  class="w-full text-left px-4 py-3 rounded-xl transition-all duration-300 border"
+                  class="w-full text-left px-4 py-3 transition-all duration-300 border-2 font-bold uppercase tracking-wider"
                   :class="selectedCategory === null
-                    ? 'theme-btn-primary border border-transparent'
-                    : 'border-transparent theme-text-secondary hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-white/5'">
+                    ? 'border-[var(--ui-accent)] bg-[var(--ui-accent-soft)] text-[var(--ui-accent)] shadow-[4px_4px_0px_var(--ui-accent)] translate-x-1'
+                    : 'border-[var(--ui-border)] text-[var(--ui-text-secondary)] hover:border-[var(--ui-accent)] hover:text-[var(--ui-accent)]'">
                   {{ t('products.allCategories') }}
                 </button>
               </li>
               <li v-for="category in categories" :key="category.id">
                 <button @click="selectedCategory = category.id"
-                  class="w-full text-left px-4 py-3 rounded-xl transition-all duration-300 border"
+                  class="w-full text-left px-4 py-3 transition-all duration-300 border-2 font-bold uppercase tracking-wider"
                   :class="selectedCategory === category.id
-                    ? 'theme-btn-primary border border-transparent'
-                    : 'border-transparent theme-text-secondary hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-white/5'">
+                    ? 'border-[var(--ui-accent)] bg-[var(--ui-accent-soft)] text-[var(--ui-accent)] shadow-[4px_4px_0px_var(--ui-accent)] translate-x-1'
+                    : 'border-[var(--ui-border)] text-[var(--ui-text-secondary)] hover:border-[var(--ui-accent)] hover:text-[var(--ui-accent)]'">
                   {{ getLocalizedText(category.name) }}
                 </button>
               </li>
@@ -60,40 +61,41 @@
         <!-- Main Content - Products Grid -->
         <main class="flex-1">
           <!-- Loading State -->
-          <div v-if="loading" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div v-if="loading" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div v-for="i in 6" :key="i"
-              class="theme-surface-muted rounded-2xl h-[400px] animate-pulse border">
+              class="bg-[var(--ui-bg-soft)] border-2 border-[var(--ui-border)] h-[400px] animate-pulse">
             </div>
           </div>
 
           <!-- Products Grid -->
           <div v-else-if="products.length > 0">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               <div v-for="product in products" :key="product.id"
-                class="group relative theme-panel rounded-2xl border transition-all duration-500 overflow-hidden flex flex-col h-full"
+                class="group relative theme-panel border-2 transition-all duration-300 overflow-hidden flex flex-col h-full"
                 :class="isSoldOut(product)
-                  ? 'opacity-85 grayscale-[0.25] saturate-50 border-rose-300/60 dark:border-rose-900/40 hover:-translate-y-0 hover:shadow-none hover:border-rose-300/60 dark:hover:border-rose-900/40'
-                  : 'theme-card-interactive'"
+                  ? 'opacity-85 grayscale-[0.25] saturate-50 border-[var(--ui-danger)]'
+                  : 'border-[var(--ui-border)] hover:border-[var(--ui-accent)] hover:-translate-y-2 hover:shadow-[8px_8px_0px_var(--ui-accent)]'"
                 @click="goToProduct(product.slug)">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[var(--ui-accent)] to-transparent opacity-0 group-hover:opacity-100 transition-opacity z-20"></div>
                 <!-- Image Area -->
-                <div class="h-56 overflow-hidden theme-surface-muted relative shrink-0">
+                <div class="h-56 overflow-hidden theme-surface-muted relative shrink-0 border-b-2 border-[var(--ui-border)] group-hover:border-[var(--ui-accent)] transition-colors">
                   <div
-                    class="absolute inset-0 bg-black/15 z-10">
+                    class="absolute inset-0 bg-gradient-to-t from-[var(--ui-bg-elevated)] to-transparent opacity-60 z-10">
                   </div>
                   <img v-if="product.images && getFirstImageUrl(product.images)" :src="getFirstImageUrl(product.images)"
                     :alt="getLocalizedText(product.title)"
-                    class="w-full h-full object-cover transform transition-transform duration-700 ease-out"
+                    class="w-full h-full object-cover transform transition-transform duration-700 ease-out mix-blend-luminosity group-hover:mix-blend-normal"
                     :class="isSoldOut(product) ? 'grayscale brightness-75' : 'group-hover:scale-110'" />
-                  <div v-else class="w-full h-full flex items-center justify-center theme-text-muted">
+                  <div v-else class="w-full h-full flex items-center justify-center theme-text-muted font-mono">
                     <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                         d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>
                   </div>
 
-                  <div v-if="isSoldOut(product)" class="absolute inset-0 z-20 bg-black/45"></div>
+                  <div v-if="isSoldOut(product)" class="absolute inset-0 z-20 bg-black/60 backdrop-blur-sm"></div>
                   <div v-if="isSoldOut(product)"
-                    class="absolute left-4 top-4 z-30 theme-badge theme-badge-solid-danger text-xs font-bold tracking-wider shadow-sm">
+                    class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-30 border-2 border-[var(--ui-danger)] bg-[var(--ui-danger-soft)] text-[var(--ui-danger)] px-4 py-2 text-sm font-black tracking-widest uppercase transform -rotate-12 shadow-[4px_4px_0px_var(--ui-danger)]">
                     {{ t('products.stockStatus.outOfStock') }}
                   </div>
 
@@ -101,94 +103,79 @@
                   <div v-if="!isSoldOut(product) && product.tags && product.tags.length > 0"
                     class="absolute top-4 right-4 z-20 flex flex-wrap gap-2 justify-end">
                     <span v-for="(tag, index) in product.tags.slice(0, 2)" :key="index"
-                      class="theme-badge theme-badge-inverse px-3 py-1 text-xs font-medium">
+                      class="border border-[var(--ui-accent)] bg-[var(--ui-bg-elevated)] text-[var(--ui-accent)] px-2 py-1 text-[10px] font-bold uppercase tracking-wider shadow-[2px_2px_0px_var(--ui-accent)]">
                       {{ tag }}
                     </span>
                   </div>
                 </div>
 
                 <!-- Content Area -->
-                <div class="p-5 relative z-20 flex flex-col flex-1">
-                  <div v-if="product.category?.name" class="text-xs theme-text-muted uppercase tracking-wider mb-2">
-                    {{ t('products.categoryLabel') }} · {{ getLocalizedText(product.category.name) }}
+                <div class="p-6 relative z-20 flex flex-col flex-1 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSJub25lIi8+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9InJnYmEoMCwgMjU1LCAyMDQsIDAuMDUpIi8+Cjwvc3ZnPg==')]">
+                  <div v-if="product.category?.name" class="text-[10px] text-[var(--ui-accent)] font-bold uppercase tracking-widest mb-2 font-mono">
+                    {{ t('products.categoryLabel') }} // {{ getLocalizedText(product.category.name) }}
                   </div>
                   <h3
-                    class="text-lg font-bold theme-text-primary mb-2 transition-colors line-clamp-1">
+                    class="text-xl font-bold theme-text-primary mb-3 transition-colors line-clamp-2 uppercase tracking-wide" style="font-family: 'Space Grotesk', sans-serif;">
                     {{ getLocalizedText(product.title) }}
                   </h3>
 
-                  <div class="mb-3 flex flex-wrap items-center gap-2">
+                  <div class="mb-4 flex flex-wrap items-center gap-2">
                     <span
-                      class="theme-badge"
+                      class="border border-[var(--ui-warning)] bg-[var(--ui-warning-soft)] text-[var(--ui-warning)] px-2 py-1 text-[10px] font-bold uppercase tracking-wider"
                       :class="product.purchase_type === 'guest'
-                        ? 'theme-badge-warning'
-                        : 'theme-badge-success'"
+                        ? 'border-[var(--ui-warning)] text-[var(--ui-warning)]'
+                        : 'border-[var(--ui-success)] text-[var(--ui-success)]'"
                     >
-                      <svg v-if="product.purchase_type === 'guest'" class="mr-1 h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2" />
-                        <circle cx="9.5" cy="7" r="3" stroke-width="2" />
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 8l2 2-2 2" />
-                      </svg>
-                      <svg v-else class="mr-1 h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <rect x="3" y="11" width="18" height="10" rx="2" ry="2" stroke-width="2" />
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11V8a5 5 0 0110 0v3" />
-                      </svg>
                       {{ getPurchaseTypeLabel(product.purchase_type) }}
                     </span>
 
                     <span
-                      class="theme-badge"
+                      class="border border-[var(--ui-info)] bg-[var(--ui-info-soft)] text-[var(--ui-info)] px-2 py-1 text-[10px] font-bold uppercase tracking-wider"
                       :class="product.fulfillment_type === 'auto'
-                        ? 'theme-badge-info'
-                        : 'theme-badge-neutral'"
+                        ? 'border-[var(--ui-info)] text-[var(--ui-info)]'
+                        : 'border-[var(--ui-text-muted)] text-[var(--ui-text-muted)]'"
                     >
-                      <svg v-if="product.fulfillment_type === 'auto'" class="mr-1 h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" />
-                      </svg>
-                      <svg v-else class="mr-1 h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.7 6.3l3 3m-9.4 9.4l-4 1 1-4 9.9-9.9a2.1 2.1 0 013 3L8.3 18.7z" />
-                      </svg>
                       {{ getFulfillmentTypeLabel(product.fulfillment_type) }}
                     </span>
 
                     <span
-                      class="theme-badge"
+                      class="border border-[var(--ui-warning)] bg-[var(--ui-warning-soft)] text-[var(--ui-warning)] px-2 py-1 text-[10px] font-bold uppercase tracking-wider"
                       :class="getStockBadgeClass(product.stock_status)"
                     >
                       {{ getStockStatusLabel(product) }}
                     </span>
                   </div>
 
-                  <p class="theme-text-secondary text-sm mb-6 line-clamp-2">
+                  <p class="theme-text-secondary text-sm mb-6 line-clamp-2 font-medium border-l-2 border-[var(--ui-border)] pl-3">
                     {{ getLocalizedText(product.description) }}
                   </p>
 
                   <div
-                    class="flex items-center justify-between border-t theme-border pt-4 mt-auto">
+                    class="flex items-end justify-between border-t-2 border-[var(--ui-border)] pt-4 mt-auto">
                     <div class="flex flex-col">
-                      <span class="text-xs theme-text-muted uppercase tracking-wider">{{ t('products.price', 'Price')
+                      <span class="text-[10px] theme-text-muted uppercase tracking-widest font-bold">{{ t('products.price', 'Price')
                       }}</span>
-                      <span v-if="hasPromotionPrice(product)" class="text-lg font-bold text-rose-600 dark:text-rose-300 font-mono">
+                      <span v-if="hasPromotionPrice(product)" class="text-2xl font-black text-[var(--ui-danger)] font-mono" style="text-shadow: 1px 1px 0px var(--ui-danger-soft);">
                         {{ formatPrice(getPromotionPriceAmount(product), siteCurrency) }}
                       </span>
-                      <span v-else class="text-lg font-bold theme-text-primary font-mono">
+                      <span v-else class="text-2xl font-black theme-text-primary font-mono" style="text-shadow: 1px 1px 0px var(--ui-accent-soft);">
                         {{ formatPrice(product.price_amount, siteCurrency) }}
                       </span>
-                      <div v-if="hasPromotionPrice(product)" class="mt-0.5 flex flex-wrap items-center gap-1.5">
-                        <span class="text-xs theme-text-muted opacity-80 line-through">{{ formatPrice(product.price_amount, siteCurrency) }}</span>
-                        <span class="theme-badge theme-badge-danger theme-badge-xs">
+                      <div v-if="hasPromotionPrice(product)" class="mt-1 flex flex-wrap items-center gap-2">
+                        <span class="text-xs theme-text-muted opacity-80 line-through font-mono">{{ formatPrice(product.price_amount, siteCurrency) }}</span>
+                        <span class="border border-[var(--ui-danger)] bg-[var(--ui-danger)] text-[var(--ui-text-on-accent)] px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider animate-pulse">
                           {{ t('products.promotionTag') }}
                         </span>
                       </div>
                     </div>
 
                     <span
-                      class="text-xs uppercase font-bold transition-colors flex items-center gap-1"
+                      class="text-xs uppercase font-black tracking-widest transition-colors flex items-center gap-2"
                       :class="isSoldOut(product)
-                        ? 'text-rose-500/90 dark:text-rose-300/90'
-                        : 'text-gray-500 group-hover:text-gray-900 dark:group-hover:text-white'">
+                        ? 'text-[var(--ui-danger)]'
+                        : 'text-[var(--ui-accent)] group-hover:text-[var(--ui-success)]'">
                       {{ t('common.viewDetails') }}
-                      <svg class="w-4 h-4 transition-transform" :class="isSoldOut(product) ? '' : 'group-hover:translate-x-1'" fill="none"
+                      <svg class="w-5 h-5 transition-transform" :class="isSoldOut(product) ? '' : 'group-hover:translate-x-2'" fill="none"
                         stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                           d="M17 8l4 4m0 0l-4 4m4-4H3" />

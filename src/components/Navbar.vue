@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="fixed top-0 left-0 right-0 z-50 theme-panel-soft border-b theme-border backdrop-blur-md transition-all duration-300">
+    class="fixed top-0 left-0 right-0 z-50 bg-[var(--ui-bg-page)] border-b-4 border-[var(--ui-border)] transition-all duration-300 shadow-[0_4px_0px_var(--ui-border)]">
     <div class="container mx-auto px-4 py-4 flex items-center justify-between">
       <!-- Logo -->
       <router-link to="/" class="theme-wordmark group relative" :title="brandSiteName">
@@ -8,9 +8,9 @@
       </router-link>
 
       <!-- Desktop Menu -->
-      <div class="hidden md:flex items-center space-x-1">
+      <div class="hidden md:flex items-center space-x-4">
         <router-link v-for="item in menuItems" :key="item.path" :to="item.path"
-          class="theme-nav-link text-sm relative group overflow-hidden"
+          class="theme-nav-link text-sm relative group overflow-hidden font-bold uppercase tracking-widest font-mono"
           active-class="theme-nav-link-active">
           <span class="relative z-10">{{ t(item.label) }}</span>
         </router-link>
@@ -19,64 +19,67 @@
       <!-- Right Side Actions -->
       <div class="flex items-center space-x-2 md:space-x-4">
         <router-link to="/cart"
-          class="theme-nav-link relative gap-2 px-2 md:px-3">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          class="theme-nav-link relative gap-2 px-3 py-2 font-bold uppercase tracking-widest font-mono">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.3 2.6a1 1 0 00.9 1.4H19M7 13l.4 2M10 21a1 1 0 100-2 1 1 0 000 2zm8 1a1 1 0 100-2 1 1 0 000 2z" />
           </svg>
-          <span class="hidden sm:inline text-xs font-medium">{{ t('navbar.cart') }}</span>
+          <span class="hidden sm:inline text-sm">{{ t('navbar.cart') }}</span>
           <span v-if="cartCount > 0"
-            class="theme-nav-badge absolute -top-1 -right-1">
+            class="absolute -top-2 -right-2 bg-[var(--ui-accent)] text-[var(--ui-text-on-accent)] text-[10px] font-black px-2 py-0.5 border-2 border-[var(--ui-border)] shadow-[2px_2px_0px_var(--ui-border)]">
             {{ cartCount }}
           </span>
         </router-link>
 
         <router-link v-if="!userAuthStore.isAuthenticated" to="/guest/orders"
-          class="hidden md:inline-flex theme-nav-link">
+          class="hidden md:inline-flex theme-nav-link font-bold uppercase tracking-widest font-mono text-sm">
           {{ t('navbar.guestOrders') }}
         </router-link>
         <router-link v-if="!userAuthStore.isAuthenticated" to="/auth/login"
-          class="hidden md:inline-flex theme-nav-link">
+          class="hidden md:inline-flex theme-nav-link font-bold uppercase tracking-widest font-mono text-sm">
           {{ t('navbar.login') }}
         </router-link>
         <router-link v-if="userAuthStore.isAuthenticated" to="/me"
-          class="hidden md:inline-flex theme-nav-link">
+          class="hidden md:inline-flex theme-nav-link font-bold uppercase tracking-widest font-mono text-sm">
           {{ t('navbar.personalCenter') }}
         </router-link>
         <button v-if="userAuthStore.isAuthenticated" @click="userAuthStore.logout()"
-          class="hidden md:inline-flex px-3 py-2 rounded-lg text-red-500 dark:text-red-400 hover:text-red-700 dark:hover:text-white hover:bg-red-50 dark:hover:bg-red-500/10 transition-all border border-transparent hover:border-red-200 dark:hover:border-red-500/20 text-xs font-medium">
+          class="hidden md:inline-flex px-4 py-2 border-2 border-[var(--ui-danger)] text-[var(--ui-danger)] hover:bg-[var(--ui-danger)] hover:text-[var(--ui-text-on-accent)] transition-all font-bold uppercase tracking-widest font-mono text-sm shadow-[4px_4px_0px_var(--ui-danger)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none">
           {{ t('navbar.logout') }}
         </button>
         <!-- Theme Switcher -->
-        <button @click="toggleTheme"
-          class="theme-nav-link p-2">
-          <SunIcon v-if="theme === 'dark'" class="w-4 h-4" />
-          <MoonIcon v-else class="w-4 h-4" />
+        <button @click="cycleThemeMode"
+          class="theme-nav-link p-2 gap-2"
+          :title="`${t('navbar.selectTheme')}：${currentThemeLabel}`">
+          <ComputerDesktopIcon v-if="themeMode === 'system'" class="w-5 h-5" />
+          <SunIcon v-else-if="themeMode === 'light'" class="w-5 h-5" />
+          <MoonIcon v-else class="w-5 h-5" />
+          <span class="hidden lg:inline text-xs font-mono">{{ currentThemeShort }}</span>
         </button>
 
         <!-- Language Switcher -->
         <div class="relative group/lang lang-switcher">
           <button @click="toggleLangMenu"
-            class="theme-nav-link space-x-2">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            class="theme-nav-link space-x-2 font-bold uppercase tracking-widest font-mono">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
             </svg>
-            <span class="hidden md:inline text-xs font-medium uppercase tracking-wider">{{ currentLocale }}</span>
+            <span class="hidden md:inline text-sm">{{ currentLocale }}</span>
           </button>
 
           <!-- Dropdown -->
           <div v-if="showLangMenu"
-            class="absolute right-0 mt-2 w-40 theme-panel-strong border rounded-xl shadow-2xl py-2 z-50 overflow-hidden backdrop-blur-xl">
-            <div class="px-2 pb-2 mb-2 border-b border-gray-100 dark:border-white/5">
-              <span class="text-xs theme-text-muted font-mono px-2">{{ t('navbar.selectLanguage') }}</span>
+            class="absolute right-0 mt-4 w-48 bg-[var(--ui-bg-elevated)] border-4 border-[var(--ui-border)] shadow-[8px_8px_0px_var(--ui-accent)] py-2 z-50">
+            <div class="px-4 pb-2 mb-2 border-b-2 border-[var(--ui-border)]">
+              <span class="text-xs text-[var(--ui-text-muted)] font-bold uppercase tracking-widest font-mono">{{ t('navbar.selectLanguage') }}</span>
             </div>
             <button v-for="lang in languages" :key="lang.code" @click="changeLanguage(lang.code)"
-              class="w-full text-left px-4 py-2.5 text-sm theme-text-secondary hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-white/5 transition-colors flex items-center justify-between group/item"
-              :class="{ 'theme-text-accent': appStore.locale === lang.code }">
+              class="w-full text-left px-4 py-3 text-sm font-bold uppercase tracking-widest font-mono text-[var(--ui-text-secondary)] hover:bg-[var(--ui-accent)] hover:text-[var(--ui-text-on-accent)] transition-colors flex items-center justify-between group/item"
+              :class="{ 'text-[var(--ui-accent)]': appStore.locale === lang.code }">
               {{ lang.name }}
               <span v-if="appStore.locale === lang.code"
-                class="w-1.5 h-1.5 rounded-full theme-accent-stick"></span>
+                class="w-2 h-2 bg-current"></span>
             </button>
           </div>
         </div>
@@ -138,13 +141,13 @@ import { useAppStore } from '../stores/app'
 import { useCartStore } from '../stores/cart'
 import { useUserAuthStore } from '../stores/userAuth'
 import { useTheme } from '../utils/theme'
-import { SunIcon, MoonIcon } from '@heroicons/vue/24/outline'
+import { SunIcon, MoonIcon, ComputerDesktopIcon } from '@heroicons/vue/24/outline'
 
 const { t, locale } = useI18n()
 const appStore = useAppStore()
 const cartStore = useCartStore()
 const userAuthStore = useUserAuthStore()
-const { theme, toggleTheme } = useTheme()
+const { themeMode, cycleThemeMode } = useTheme()
 
 const showMobileMenu = ref(false)
 const showLangMenu = ref(false)
@@ -169,11 +172,23 @@ const currentLocale = computed(() => {
   return lang.code === 'en-US' ? 'EN' : (lang.code === 'zh-CN' ? '简' : '繁')
 })
 
+const currentThemeLabel = computed(() => {
+  if (themeMode.value === 'system') return t('navbar.themeSystem')
+  if (themeMode.value === 'dark') return t('navbar.themeDark')
+  return t('navbar.themeLight')
+})
+
+const currentThemeShort = computed(() => {
+  if (themeMode.value === 'system') return 'SYS'
+  if (themeMode.value === 'dark') return 'DARK'
+  return 'LIGHT'
+})
+
 const cartCount = computed(() => cartStore.totalItems)
 
 const brandSiteName = computed(() => {
   const text = String(appStore.config?.brand?.site_name || '').trim()
-  return text !== '' ? text : '米米小卖部'
+  return text !== '' ? text : '米米商城'
 })
 
 

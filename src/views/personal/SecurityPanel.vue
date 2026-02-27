@@ -1,113 +1,116 @@
 <template>
   <div class="space-y-6">
-    <div class="theme-personal-card">
-      <div class="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+    <!-- Email Security Card -->
+    <div class="border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] p-8 shadow-[8px_8px_0px_var(--ui-accent)]">
+      <div class="mb-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between border-b-2 border-[var(--ui-border)] pb-4">
         <div>
-          <h2 class="text-xl font-bold theme-text-primary">{{ t('personalCenter.security.title') }}</h2>
-          <p class="mt-1 text-sm theme-text-muted">
+          <h2 class="text-2xl font-black text-[var(--ui-accent)] uppercase tracking-widest font-mono">{{ t('personalCenter.security.title') }}</h2>
+          <p class="mt-2 text-sm font-bold text-[var(--ui-text-muted)] font-mono">
             {{ requiresOldEmailCode ? t('personalCenter.security.subtitle') : t('personalCenter.security.subtitleBindOnly') }}
           </p>
         </div>
-        <span class="theme-badge theme-badge-accent px-3 py-1 text-xs font-semibold">
+        <span class="border-2 border-[var(--ui-accent)] bg-[var(--ui-accent-soft)] text-[var(--ui-accent)] px-4 py-2 text-xs font-black uppercase tracking-widest">
           {{ t('personalCenter.tabs.security') }}
         </span>
       </div>
 
-      <div v-if="securityAlert" class="mb-5 rounded-xl border px-4 py-3 text-sm shadow-sm" :class="pageAlertClass(securityAlert.level)">
+      <div v-if="securityAlert" class="mb-6 border-2 px-4 py-3 text-sm font-black uppercase tracking-wider" :class="securityAlert.level === 'error' ? 'border-[var(--ui-danger)] bg-[var(--ui-danger-soft)] text-[var(--ui-danger)] shadow-[4px_4px_0px_var(--ui-danger)]' : 'border-[var(--ui-success)] bg-[var(--ui-success-soft)] text-[var(--ui-success)] shadow-[4px_4px_0px_var(--ui-success)]'">
         {{ securityAlert.message }}
       </div>
 
-      <div class="mb-6 rounded-2xl border border-gray-200/70 bg-gray-50/70 p-4 dark:border-white/10 dark:bg-white/5">
+      <!-- Telegram Binding -->
+      <div class="mb-8 border-2 border-[var(--ui-border)] bg-[var(--ui-bg-soft)] p-5">
         <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h3 class="text-base font-semibold theme-text-primary">{{ t('personalCenter.security.telegramTitle') }}</h3>
-            <p class="mt-1 text-xs theme-text-muted">
+            <h3 class="text-base font-black text-[var(--ui-text-primary)] uppercase tracking-widest font-mono">{{ t('personalCenter.security.telegramTitle') }}</h3>
+            <p class="mt-1 text-xs font-bold text-[var(--ui-text-muted)] font-mono">
               {{ telegramEnabled ? t('personalCenter.security.telegramSubtitle') : t('personalCenter.security.telegramDisabledTip') }}
             </p>
           </div>
-          <span class="theme-badge px-3 py-1 text-xs font-semibold" :class="telegramBound ? 'theme-badge-success' : 'theme-badge-warning'">
+          <span class="border-2 px-3 py-1 text-xs font-black uppercase tracking-widest font-mono" :class="telegramBound ? 'border-[var(--ui-success)] bg-[var(--ui-success-soft)] text-[var(--ui-success)]' : 'border-[var(--ui-warning)] bg-[var(--ui-warning-soft)] text-[var(--ui-warning)]'">
             {{ telegramBound ? t('personalCenter.security.telegramBound') : t('personalCenter.security.telegramUnbound') }}
           </span>
         </div>
 
-        <div v-if="userProfileStore.loadingTelegramBinding" class="mt-4 rounded-xl border border-dashed border-gray-200/80 px-4 py-4 text-sm theme-text-muted dark:border-white/10">
+        <div v-if="userProfileStore.loadingTelegramBinding" class="mt-4 border-2 border-dashed border-[var(--ui-border)] px-4 py-4 text-sm font-mono text-[var(--ui-text-muted)]">
           {{ t('personalCenter.security.telegramLoading') }}
         </div>
 
-        <div v-else-if="telegramBound" class="mt-4 space-y-4 rounded-xl border border-gray-200/80 bg-white/80 p-4 dark:border-white/10 dark:bg-white/10">
+        <div v-else-if="telegramBound" class="mt-4 space-y-4 border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] p-4">
           <div class="flex items-center gap-3">
             <img
               v-if="userProfileStore.telegramBinding?.avatar_url"
               :src="userProfileStore.telegramBinding?.avatar_url"
               alt="Telegram Avatar"
-              class="h-11 w-11 rounded-full border border-gray-200 object-cover dark:border-white/10"
+              class="h-11 w-11 border-2 border-[var(--ui-accent)] object-cover"
             />
             <div>
-              <p class="text-sm font-semibold theme-text-primary">{{ telegramDisplayName }}</p>
-              <p class="text-xs theme-text-muted">{{ t('personalCenter.security.telegramBindID', { id: userProfileStore.telegramBinding?.provider_user_id || '-' }) }}</p>
+              <p class="text-sm font-black text-[var(--ui-text-primary)] font-mono">{{ telegramDisplayName }}</p>
+              <p class="text-xs font-bold text-[var(--ui-text-muted)] font-mono">{{ t('personalCenter.security.telegramBindID', { id: userProfileStore.telegramBinding?.provider_user_id || '-' }) }}</p>
             </div>
           </div>
-          <p class="text-xs theme-text-muted">
+          <p class="text-xs font-mono text-[var(--ui-text-muted)]">
             {{ t('personalCenter.security.telegramBindTime', { time: formatDate(userProfileStore.telegramBinding?.auth_at) || '-' }) }}
           </p>
           <button
             type="button"
-            class="inline-flex items-center justify-center rounded-xl border theme-btn-secondary px-4 py-2.5 text-xs font-semibold disabled:cursor-not-allowed disabled:opacity-60"
+            class="inline-flex items-center justify-center border-2 border-[var(--ui-danger)] px-4 py-2 text-xs font-black uppercase tracking-widest text-[var(--ui-danger)] hover:bg-[var(--ui-danger-soft)] transition-colors disabled:cursor-not-allowed disabled:opacity-60"
             :disabled="userProfileStore.unbindingTelegram || !canUnbindTelegram"
             @click="handleUnbindTelegram"
           >
             {{ userProfileStore.unbindingTelegram ? t('personalCenter.security.telegramUnbinding') : t('personalCenter.security.telegramUnbind') }}
           </button>
-          <p v-if="!canUnbindTelegram" class="text-xs theme-text-muted">
+          <p v-if="!canUnbindTelegram" class="text-xs font-mono text-[var(--ui-text-muted)]">
             {{ t('personalCenter.security.telegramUnbindDisabledTip') }}
           </p>
         </div>
 
         <div v-else class="mt-4 space-y-3">
-          <p class="text-xs theme-text-muted">
+          <p class="text-xs font-mono text-[var(--ui-text-muted)]">
             {{ telegramEnabled ? t('personalCenter.security.telegramUnboundTip') : t('personalCenter.security.telegramDisabledTip') }}
           </p>
           <div v-if="telegramEnabled" ref="telegramWidgetRef" class="flex justify-start"></div>
         </div>
       </div>
 
+      <!-- Email Change Form -->
       <form class="space-y-6" @submit.prevent="handleChangeEmail">
         <div>
-          <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-200">{{ t('personalCenter.security.currentEmailLabel') }}</label>
+          <label class="mb-2 block text-xs font-black uppercase tracking-widest text-[var(--ui-text-muted)] font-mono">{{ t('personalCenter.security.currentEmailLabel') }}</label>
           <input
             :value="currentEmailDisplay"
             disabled
-            class="w-full rounded-xl border border-gray-200 bg-gray-100 px-4 py-3 text-gray-500 dark:border-white/10 dark:bg-white/5"
+            class="w-full border-2 border-[var(--ui-border)] bg-[var(--ui-bg-soft)] px-4 py-3 text-sm font-mono text-[var(--ui-text-muted)] cursor-not-allowed"
           />
-          <p v-if="!requiresOldEmailCode" class="mt-2 text-xs theme-text-muted">
+          <p v-if="!requiresOldEmailCode" class="mt-2 text-xs font-mono text-[var(--ui-text-muted)]">
             {{ t('personalCenter.security.bindOnlyTip') }}
           </p>
         </div>
 
         <div>
-          <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-200">{{ t('personalCenter.security.newEmailLabel') }}</label>
+          <label class="mb-2 block text-xs font-black uppercase tracking-widest text-[var(--ui-text-muted)] font-mono">{{ t('personalCenter.security.newEmailLabel') }}</label>
           <input
             v-model="securityForm.newEmail"
             type="email"
             :placeholder="t('personalCenter.security.newEmailPlaceholder')"
-            class="w-full form-input-lg"
+            class="w-full border-2 border-[var(--ui-border)] bg-[var(--ui-bg-page)] px-4 py-3 text-sm font-mono focus:border-[var(--ui-accent)] focus:outline-none transition-colors"
           />
         </div>
 
         <div class="grid grid-cols-1 gap-4" :class="requiresOldEmailCode ? 'lg:grid-cols-2' : ''">
           <div v-if="requiresOldEmailCode">
-            <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-200">{{ t('personalCenter.security.oldCodeLabel') }}</label>
+            <label class="mb-2 block text-xs font-black uppercase tracking-widest text-[var(--ui-text-muted)] font-mono">{{ t('personalCenter.security.oldCodeLabel') }}</label>
             <div class="flex flex-col gap-2 sm:flex-row">
               <input
                 v-model="securityForm.oldCode"
                 :placeholder="t('personalCenter.security.codePlaceholder')"
-                class="min-w-0 flex-1 form-input-lg"
+                class="min-w-0 flex-1 border-2 border-[var(--ui-border)] bg-[var(--ui-bg-page)] px-4 py-3 text-sm font-mono focus:border-[var(--ui-accent)] focus:outline-none transition-colors"
               />
               <button
                 type="button"
                 @click="handleSendOldCode"
                 :disabled="userProfileStore.sendingCode || oldCodeCooldown > 0"
-                class="whitespace-nowrap rounded-xl border theme-btn-secondary px-4 py-3 text-xs font-semibold disabled:cursor-not-allowed disabled:opacity-60"
+                class="whitespace-nowrap border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] px-4 py-3 text-xs font-black uppercase tracking-widest hover:border-[var(--ui-accent)] hover:text-[var(--ui-accent)] transition-colors disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {{ oldCodeCooldown > 0 ? t('personalCenter.security.countdown', { seconds: oldCodeCooldown }) : t('personalCenter.security.sendOldCode') }}
               </button>
@@ -115,18 +118,18 @@
           </div>
 
           <div>
-            <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-200">{{ t('personalCenter.security.newCodeLabel') }}</label>
+            <label class="mb-2 block text-xs font-black uppercase tracking-widest text-[var(--ui-text-muted)] font-mono">{{ t('personalCenter.security.newCodeLabel') }}</label>
             <div class="flex flex-col gap-2 sm:flex-row">
               <input
                 v-model="securityForm.newCode"
                 :placeholder="t('personalCenter.security.codePlaceholder')"
-                class="min-w-0 flex-1 form-input-lg"
+                class="min-w-0 flex-1 border-2 border-[var(--ui-border)] bg-[var(--ui-bg-page)] px-4 py-3 text-sm font-mono focus:border-[var(--ui-accent)] focus:outline-none transition-colors"
               />
               <button
                 type="button"
                 @click="handleSendNewCode"
                 :disabled="userProfileStore.sendingCode || newCodeCooldown > 0"
-                class="whitespace-nowrap rounded-xl border theme-btn-secondary px-4 py-3 text-xs font-semibold disabled:cursor-not-allowed disabled:opacity-60"
+                class="whitespace-nowrap border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] px-4 py-3 text-xs font-black uppercase tracking-widest hover:border-[var(--ui-accent)] hover:text-[var(--ui-accent)] transition-colors disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {{ newCodeCooldown > 0 ? t('personalCenter.security.countdown', { seconds: newCodeCooldown }) : t('personalCenter.security.sendNewCode') }}
               </button>
@@ -134,11 +137,11 @@
           </div>
         </div>
 
-        <div class="border-t border-gray-200/70 pt-5 dark:border-white/10">
+        <div class="border-t-2 border-[var(--ui-border)] pt-5">
           <button
             type="submit"
             :disabled="userProfileStore.changingEmail"
-            class="inline-flex items-center justify-center rounded-xl theme-btn-primary px-6 py-3 text-sm font-bold transition-colors disabled:cursor-not-allowed disabled:opacity-60"
+            class="inline-flex items-center justify-center border-2 border-[var(--ui-accent)] bg-[var(--ui-accent)] px-8 py-3 text-sm font-black uppercase tracking-widest text-[var(--ui-text-on-accent)] hover:bg-transparent hover:text-[var(--ui-accent)] transition-colors disabled:cursor-not-allowed disabled:opacity-60"
           >
             {{
               userProfileStore.changingEmail
@@ -150,89 +153,93 @@
       </form>
     </div>
 
-    <div class="theme-personal-card">
-      <div class="mb-4 flex items-center justify-between">
-        <h3 class="text-lg font-bold theme-text-primary">{{ t('personalCenter.security.loginLogsTitle') }}</h3>
-        <span class="text-xs theme-text-muted">{{ t('personalCenter.security.loginLogsTip') }}</span>
+    <!-- Login Logs Card -->
+    <div class="border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] p-8 shadow-[8px_8px_0px_var(--ui-border)]">
+      <div class="mb-6 flex items-center justify-between border-b-2 border-[var(--ui-border)] pb-4">
+        <h3 class="text-lg font-black text-[var(--ui-text-primary)] uppercase tracking-widest font-mono">{{ t('personalCenter.security.loginLogsTitle') }}</h3>
+        <span class="text-xs font-mono font-bold text-[var(--ui-text-muted)]">{{ t('personalCenter.security.loginLogsTip') }}</span>
       </div>
-      <div v-if="userProfileStore.loadingLoginLogs" class="rounded-xl border border-gray-200/70 px-4 py-6 text-center text-sm text-gray-500 dark:border-white/10 dark:text-gray-400">
+      <div v-if="userProfileStore.loadingLoginLogs" class="border-2 border-[var(--ui-border)] px-4 py-6 text-center text-sm font-mono text-[var(--ui-text-muted)]">
         {{ t('personalCenter.security.loginLogsLoading') }}
       </div>
-      <div v-else-if="userProfileStore.recentLoginLogs.length === 0" class="rounded-xl border border-dashed border-gray-200/80 px-4 py-6 text-center text-sm text-gray-500 dark:border-white/10 dark:text-gray-400">
+      <div v-else-if="userProfileStore.recentLoginLogs.length === 0" class="border-2 border-dashed border-[var(--ui-border)] px-4 py-6 text-center text-sm font-mono text-[var(--ui-text-muted)]">
         {{ t('personalCenter.security.loginLogsEmpty') }}
       </div>
-      <div v-else class="overflow-x-auto rounded-xl border border-gray-200/70 dark:border-white/10">
-        <table class="min-w-full divide-y divide-gray-200 text-left text-sm dark:divide-white/10">
-          <thead class="bg-gray-50/80 text-xs uppercase tracking-wide text-gray-500 dark:bg-white/5 dark:text-gray-400">
+      <div v-else class="overflow-x-auto border-2 border-[var(--ui-border)]">
+        <table class="min-w-full divide-y-2 divide-[var(--ui-border)] text-left text-sm">
+          <thead class="bg-[var(--ui-bg-soft)]">
             <tr>
-              <th class="px-4 py-3 font-semibold">{{ t('personalCenter.security.loginLogsTime') }}</th>
-              <th class="px-4 py-3 font-semibold">{{ t('personalCenter.security.loginLogsStatus') }}</th>
-              <th class="px-4 py-3 font-semibold">{{ t('personalCenter.security.loginLogsIp') }}</th>
-              <th class="px-4 py-3 font-semibold">{{ t('personalCenter.security.loginLogsReason') }}</th>
+              <th class="px-4 py-3 text-xs font-black uppercase tracking-widest font-mono text-[var(--ui-text-muted)]">{{ t('personalCenter.security.loginLogsTime') }}</th>
+              <th class="px-4 py-3 text-xs font-black uppercase tracking-widest font-mono text-[var(--ui-text-muted)]">{{ t('personalCenter.security.loginLogsStatus') }}</th>
+              <th class="px-4 py-3 text-xs font-black uppercase tracking-widest font-mono text-[var(--ui-text-muted)]">{{ t('personalCenter.security.loginLogsIp') }}</th>
+              <th class="px-4 py-3 text-xs font-black uppercase tracking-widest font-mono text-[var(--ui-text-muted)]">{{ t('personalCenter.security.loginLogsReason') }}</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-gray-200 dark:divide-white/10">
-            <tr v-for="item in userProfileStore.recentLoginLogs" :key="item.id">
-              <td class="px-4 py-3 text-gray-600 dark:text-gray-300">{{ formatDate(item.created_at) }}</td>
+          <tbody class="divide-y-2 divide-[var(--ui-border)]">
+            <tr v-for="item in userProfileStore.recentLoginLogs" :key="item.id" class="hover:bg-[var(--ui-bg-soft)] transition-colors">
+              <td class="px-4 py-3 text-xs font-mono text-[var(--ui-text-secondary)]">{{ formatDate(item.created_at) }}</td>
               <td class="px-4 py-3">
-                <span class="theme-badge px-2.5 py-1 text-xs font-semibold" :class="loginStatusClass(item.status)">
+                <span class="border-2 px-2 py-0.5 text-xs font-black uppercase tracking-widest font-mono" :class="loginStatusClass(item.status)">
                   {{ loginStatusLabel(item.status) }}
                 </span>
               </td>
-              <td class="px-4 py-3 font-mono text-xs text-gray-600 dark:text-gray-300">{{ item.client_ip || '-' }}</td>
-              <td class="px-4 py-3 text-xs theme-text-muted">{{ loginReasonLabel(item.fail_reason) }}</td>
+              <td class="px-4 py-3 font-mono text-xs text-[var(--ui-text-secondary)]">{{ item.client_ip || '-' }}</td>
+              <td class="px-4 py-3 text-xs font-mono text-[var(--ui-text-muted)]">{{ loginReasonLabel(item.fail_reason) }}</td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
 
-    <div v-if="canManagePassword" class="theme-personal-card">
-      <h3 class="text-lg font-bold theme-text-primary">
-        {{ requiresOldPassword ? t('personalCenter.security.passwordTitle') : t('personalCenter.security.setPasswordTitle') }}
-      </h3>
-      <p class="mt-1 text-sm theme-text-muted">
-        {{ requiresOldPassword ? t('personalCenter.security.passwordSubtitle') : t('personalCenter.security.setPasswordSubtitle') }}
-      </p>
+    <!-- Password Card -->
+    <div v-if="canManagePassword" class="border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] p-8 shadow-[8px_8px_0px_var(--ui-danger)]">
+      <div class="mb-6 border-b-2 border-[var(--ui-border)] pb-4">
+        <h3 class="text-lg font-black text-[var(--ui-danger)] uppercase tracking-widest font-mono">
+          {{ requiresOldPassword ? t('personalCenter.security.passwordTitle') : t('personalCenter.security.setPasswordTitle') }}
+        </h3>
+        <p class="mt-2 text-sm font-bold text-[var(--ui-text-muted)] font-mono">
+          {{ requiresOldPassword ? t('personalCenter.security.passwordSubtitle') : t('personalCenter.security.setPasswordSubtitle') }}
+        </p>
+      </div>
 
-      <form class="mt-6 space-y-6" @submit.prevent="handleChangePassword">
+      <form class="space-y-6" @submit.prevent="handleChangePassword">
         <div v-if="requiresOldPassword">
-          <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-200">{{ t('personalCenter.security.currentPasswordLabel') }}</label>
+          <label class="mb-2 block text-xs font-black uppercase tracking-widest text-[var(--ui-text-muted)] font-mono">{{ t('personalCenter.security.currentPasswordLabel') }}</label>
           <input
             v-model="passwordForm.oldPassword"
             type="password"
             :placeholder="t('personalCenter.security.passwordPlaceholder')"
-            class="w-full form-input-lg"
+            class="w-full border-2 border-[var(--ui-border)] bg-[var(--ui-bg-page)] px-4 py-3 text-sm font-mono focus:border-[var(--ui-danger)] focus:outline-none transition-colors"
           />
         </div>
 
         <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
           <div>
-            <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-200">{{ t('personalCenter.security.newPasswordLabel') }}</label>
+            <label class="mb-2 block text-xs font-black uppercase tracking-widest text-[var(--ui-text-muted)] font-mono">{{ t('personalCenter.security.newPasswordLabel') }}</label>
             <input
               v-model="passwordForm.newPassword"
               type="password"
               :placeholder="t('personalCenter.security.passwordPlaceholder')"
-              class="w-full form-input-lg"
+              class="w-full border-2 border-[var(--ui-border)] bg-[var(--ui-bg-page)] px-4 py-3 text-sm font-mono focus:border-[var(--ui-danger)] focus:outline-none transition-colors"
             />
           </div>
 
           <div>
-            <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-200">{{ t('personalCenter.security.confirmPasswordLabel') }}</label>
+            <label class="mb-2 block text-xs font-black uppercase tracking-widest text-[var(--ui-text-muted)] font-mono">{{ t('personalCenter.security.confirmPasswordLabel') }}</label>
             <input
               v-model="passwordForm.confirmPassword"
               type="password"
               :placeholder="t('personalCenter.security.passwordPlaceholder')"
-              class="w-full form-input-lg"
+              class="w-full border-2 border-[var(--ui-border)] bg-[var(--ui-bg-page)] px-4 py-3 text-sm font-mono focus:border-[var(--ui-danger)] focus:outline-none transition-colors"
             />
           </div>
         </div>
 
-        <div class="border-t border-gray-200/70 pt-5 dark:border-white/10">
+        <div class="border-t-2 border-[var(--ui-border)] pt-5">
           <button
             type="submit"
             :disabled="userProfileStore.changingPassword"
-            class="inline-flex items-center justify-center rounded-xl border theme-btn-secondary px-6 py-3 text-sm font-semibold disabled:cursor-not-allowed disabled:opacity-60"
+            class="inline-flex items-center justify-center border-2 border-[var(--ui-danger)] bg-[var(--ui-danger)] px-8 py-3 text-sm font-black uppercase tracking-widest text-white hover:bg-transparent hover:text-[var(--ui-danger)] transition-colors disabled:cursor-not-allowed disabled:opacity-60"
           >
             {{
               userProfileStore.changingPassword

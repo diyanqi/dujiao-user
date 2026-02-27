@@ -1,19 +1,19 @@
 <template>
-  <div class="space-y-4">
-    <div class="rounded-2xl border theme-panel-soft p-6 shadow-sm">
-      <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+  <div class="space-y-6">
+    <div class="border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] p-8 shadow-[8px_8px_0px_var(--ui-accent)]">
+      <div class="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
         <div>
-          <h2 class="text-xl font-bold theme-text-primary">{{ t('orders.title') }}</h2>
-          <p class="mt-1 text-sm theme-text-muted">{{ t('orders.subtitle') }}</p>
+          <h2 class="text-2xl font-black text-[var(--ui-accent)] uppercase tracking-widest font-mono">{{ t('orders.title') }}</h2>
+          <p class="mt-2 text-sm font-bold text-[var(--ui-text-muted)] font-mono">{{ t('orders.subtitle') }}</p>
         </div>
 
-        <div class="flex flex-wrap items-center gap-2">
-          <span class="rounded-full border theme-pill-neutral px-3 py-1 text-xs font-semibold">
+        <div class="flex flex-wrap items-center gap-4">
+          <span class="border-2 border-[var(--ui-border)] bg-[var(--ui-bg-soft)] px-4 py-2 text-xs font-black uppercase tracking-widest font-mono">
             {{ t('orders.pageInfo', { page: pagination.page, total: pagination.total_page }) }}
           </span>
           <router-link
             to="/products"
-            class="inline-flex items-center rounded-full border theme-btn-ghost px-3 py-1 text-xs font-semibold"
+            class="inline-flex items-center border-2 border-[var(--ui-border)] bg-transparent px-4 py-2 text-xs font-black uppercase tracking-widest text-[var(--ui-text-primary)] hover:border-[var(--ui-accent)] hover:text-[var(--ui-accent)] transition-colors"
           >
             {{ t('orders.continueShopping') }}
           </router-link>
@@ -21,44 +21,44 @@
       </div>
     </div>
 
-    <div class="grid grid-cols-2 gap-3 lg:grid-cols-4">
-      <div class="rounded-2xl border theme-panel p-4">
-        <div class="text-xs theme-text-muted">{{ t('orders.stats.totalMatched') }}</div>
-        <div class="mt-2 text-xl font-bold theme-text-primary">{{ pagination.total }}</div>
+    <div class="grid grid-cols-2 gap-4 lg:grid-cols-4">
+      <div class="border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] p-6 shadow-[4px_4px_0px_var(--ui-accent)]">
+        <div class="text-xs font-black uppercase tracking-widest text-[var(--ui-text-muted)] font-mono">{{ t('orders.stats.totalMatched') }}</div>
+        <div class="mt-3 text-3xl font-black text-[var(--ui-text-primary)] font-mono">{{ pagination.total }}</div>
       </div>
-      <div class="rounded-2xl border theme-panel p-4">
-        <div class="text-xs theme-text-muted">{{ t('orders.stats.currentPage') }}</div>
-        <div class="mt-2 text-xl font-bold theme-text-primary">{{ orders.length }}</div>
+      <div class="border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] p-6 shadow-[4px_4px_0px_var(--ui-accent)]">
+        <div class="text-xs font-black uppercase tracking-widest text-[var(--ui-text-muted)] font-mono">{{ t('orders.stats.currentPage') }}</div>
+        <div class="mt-3 text-3xl font-black text-[var(--ui-text-primary)] font-mono">{{ orders.length }}</div>
       </div>
-      <div class="rounded-2xl border theme-panel p-4">
-        <div class="text-xs">{{ t('orders.stats.pendingPayment') }}</div>
-        <div class="mt-2 text-xl font-bold">{{ pendingPaymentCount }}</div>
+      <div class="border-2 border-[var(--ui-warning)] bg-[var(--ui-warning-soft)] p-6 shadow-[4px_4px_0px_var(--ui-warning)]">
+        <div class="text-xs font-black uppercase tracking-widest text-[var(--ui-warning)] font-mono">{{ t('orders.stats.pendingPayment') }}</div>
+        <div class="mt-3 text-3xl font-black text-[var(--ui-warning)] font-mono">{{ pendingPaymentCount }}</div>
       </div>
-      <div class="rounded-2xl border theme-panel p-4">
-        <div class="text-xs">{{ t('orders.stats.finished') }}</div>
-        <div class="mt-2 text-xl font-bold">{{ finishedCount }}</div>
+      <div class="border-2 border-[var(--ui-success)] bg-[var(--ui-success-soft)] p-6 shadow-[4px_4px_0px_var(--ui-success)]">
+        <div class="text-xs font-black uppercase tracking-widest text-[var(--ui-success)] font-mono">{{ t('orders.stats.finished') }}</div>
+        <div class="mt-3 text-3xl font-black text-[var(--ui-success)] font-mono">{{ finishedCount }}</div>
       </div>
     </div>
 
-    <div class="rounded-2xl border theme-panel-soft p-4 shadow-sm">
-      <div class="flex flex-col gap-3 lg:flex-row lg:items-end">
+    <div class="border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] p-6 shadow-[8px_8px_0px_var(--ui-accent)]">
+      <div class="flex flex-col gap-4 lg:flex-row lg:items-end">
         <div class="w-full lg:max-w-sm">
-          <label class="mb-1 block text-xs font-semibold theme-text-muted">{{ t('orders.filters.keyword') }}</label>
+          <label class="mb-2 block text-xs font-black uppercase tracking-widest text-[var(--ui-text-muted)] font-mono">{{ t('orders.filters.keyword') }}</label>
           <input
             v-model.trim="filters.orderNo"
             type="text"
             :placeholder="t('orders.filters.orderNoPlaceholder')"
-            class="h-11 w-full rounded-xl px-4 theme-input placeholder:text-gray-400"
+            class="h-12 w-full border-2 border-[var(--ui-border)] bg-[var(--ui-bg-page)] px-4 font-mono focus:border-[var(--ui-accent)] focus:outline-none transition-colors"
             @input="handleOrderNoInput"
             @keyup.enter="applyFilters"
           />
         </div>
 
         <div class="w-full lg:w-56">
-          <label class="mb-1 block text-xs font-semibold theme-text-muted">{{ t('orders.filters.status') }}</label>
+          <label class="mb-2 block text-xs font-black uppercase tracking-widest text-[var(--ui-text-muted)] font-mono">{{ t('orders.filters.status') }}</label>
           <select
             v-model="filters.status"
-            class="h-11 w-full rounded-xl px-4 theme-input"
+            class="h-12 w-full border-2 border-[var(--ui-border)] bg-[var(--ui-bg-page)] px-4 font-mono focus:border-[var(--ui-accent)] focus:outline-none transition-colors"
             @change="handleStatusChange"
           >
             <option v-for="item in statusOptions" :key="item.value || 'all'" :value="item.value">
@@ -67,24 +67,24 @@
           </select>
         </div>
 
-        <div class="flex w-full flex-wrap items-center gap-2 lg:w-auto">
+        <div class="flex w-full flex-wrap items-center gap-3 lg:w-auto">
           <button
             type="button"
-            class="inline-flex h-11 items-center rounded-xl theme-btn-primary px-4 text-sm font-bold transition-colors"
+            class="inline-flex h-12 items-center border-2 border-[var(--ui-accent)] bg-[var(--ui-accent)] px-6 text-sm font-black uppercase tracking-widest text-[var(--ui-text-on-accent)] hover:bg-transparent hover:text-[var(--ui-accent)] transition-colors"
             @click="applyFilters"
           >
             {{ t('orders.filters.search') }}
           </button>
           <button
             type="button"
-            class="inline-flex h-11 items-center rounded-xl border theme-btn-secondary px-4 text-sm font-semibold"
+            class="inline-flex h-12 items-center border-2 border-[var(--ui-border)] bg-transparent px-6 text-sm font-black uppercase tracking-widest text-[var(--ui-text-primary)] hover:border-[var(--ui-accent)] hover:text-[var(--ui-accent)] transition-colors"
             @click="resetFilters"
           >
             {{ t('orders.filters.reset') }}
           </button>
           <button
             type="button"
-            class="inline-flex h-11 items-center rounded-xl border theme-btn-secondary px-4 text-sm font-semibold"
+            class="inline-flex h-12 items-center border-2 border-[var(--ui-border)] bg-transparent px-6 text-sm font-black uppercase tracking-widest text-[var(--ui-text-primary)] hover:border-[var(--ui-accent)] hover:text-[var(--ui-accent)] transition-colors"
             @click="refreshCurrentPage"
           >
             {{ t('orders.filters.refresh') }}
@@ -92,7 +92,7 @@
         </div>
       </div>
 
-      <div v-if="hasActiveFilters" class="mt-3 text-xs theme-text-muted">
+      <div v-if="hasActiveFilters" class="mt-4 text-xs font-bold text-[var(--ui-accent)] font-mono uppercase tracking-widest">
         {{ t('orders.filters.current', { orderNo: filters.orderNo || t('orders.filters.any'), status: currentStatusLabel }) }}
       </div>
     </div>
@@ -101,55 +101,55 @@
       <div
         v-for="i in 3"
         :key="i"
-        class="h-24 animate-pulse rounded-2xl border theme-surface-muted"
+        class="h-32 animate-pulse border-2 border-[var(--ui-border)] bg-[var(--ui-bg-soft)]"
       ></div>
     </div>
 
-    <div v-else-if="orders.length === 0" class="rounded-2xl border theme-panel-soft p-12 text-center shadow-sm">
-      <p class="mb-6 theme-text-muted">{{ hasActiveFilters ? t('orders.emptyFiltered') : t('orders.empty') }}</p>
+    <div v-else-if="orders.length === 0" class="border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] p-16 text-center shadow-[8px_8px_0px_var(--ui-accent)]">
+      <p class="mb-8 text-lg font-black text-[var(--ui-text-muted)] uppercase tracking-widest font-mono">{{ hasActiveFilters ? t('orders.emptyFiltered') : t('orders.empty') }}</p>
       <router-link
         to="/products"
-        class="inline-flex items-center gap-2 rounded-xl theme-btn-primary px-6 py-3 font-bold transition-colors"
+        class="inline-flex items-center gap-2 border-2 border-[var(--ui-accent)] bg-[var(--ui-accent)] px-8 py-4 font-black uppercase tracking-widest text-[var(--ui-text-on-accent)] hover:bg-transparent hover:text-[var(--ui-accent)] transition-colors"
       >
         {{ t('orders.emptyAction') }}
       </router-link>
     </div>
 
-    <div v-else class="space-y-4">
+    <div v-else class="space-y-6">
       <div
         v-for="order in orders"
         :key="order.order_no || order.id"
-        class="rounded-2xl border theme-panel-soft p-6 shadow-sm transition-all theme-card-interactive"
+        class="border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] p-6 shadow-[8px_8px_0px_var(--ui-accent)] transition-transform hover:-translate-y-1 hover:shadow-[12px_12px_0px_var(--ui-accent)]"
       >
-        <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+        <div class="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
           <div>
-            <div class="text-xs uppercase tracking-[0.16em] theme-text-muted">{{ t('orders.orderNo') }}：{{ order.order_no }}</div>
-            <div class="mt-2 text-lg font-bold theme-text-primary">{{ formatMoney(order.total_amount, order.currency) }}</div>
-            <div v-if="hasDiscount(order)" class="mt-2 flex flex-wrap gap-2 text-xs theme-text-muted">
-              <span v-if="hasDiscountAmount(order.discount_amount)" class="theme-badge theme-badge-success px-2.5 py-1">
+            <div class="text-xs font-black uppercase tracking-widest text-[var(--ui-text-muted)] font-mono">{{ t('orders.orderNo') }}：<span class="text-[var(--ui-text-primary)]">{{ order.order_no }}</span></div>
+            <div class="mt-3 text-2xl font-black text-[var(--ui-accent)] font-mono">{{ formatMoney(order.total_amount, order.currency) }}</div>
+            <div v-if="hasDiscount(order)" class="mt-3 flex flex-wrap gap-3 text-xs font-black font-mono">
+              <span v-if="hasDiscountAmount(order.discount_amount)" class="border-2 border-[var(--ui-success)] bg-[var(--ui-success-soft)] text-[var(--ui-success)] px-3 py-1.5 uppercase tracking-widest">
                 {{ t('orderDetail.couponDiscountLabel') }}：{{ formatMoney(order.discount_amount, order.currency) }}
               </span>
-              <span v-if="hasDiscountAmount(order.promotion_discount_amount)" class="theme-badge theme-badge-danger px-2.5 py-1">
+              <span v-if="hasDiscountAmount(order.promotion_discount_amount)" class="border-2 border-[var(--ui-danger)] bg-[var(--ui-danger-soft)] text-[var(--ui-danger)] px-3 py-1.5 uppercase tracking-widest">
                 {{ t('orderDetail.promotionDiscountLabel') }}：{{ formatMoney(order.promotion_discount_amount, order.currency) }}
               </span>
             </div>
-            <div class="mt-2 text-xs theme-text-muted">{{ formatDate(order.created_at) }}</div>
+            <div class="mt-3 text-xs font-bold text-[var(--ui-text-muted)] font-mono">{{ formatDate(order.created_at) }}</div>
           </div>
 
-          <div class="flex flex-wrap items-center gap-3">
-            <span class="theme-badge px-3 py-1 text-xs font-medium" :class="statusClass(order.status)">
+          <div class="flex flex-wrap items-center gap-4">
+            <span class="border-2 px-4 py-2 text-xs font-black uppercase tracking-widest" :class="statusClass(order.status)">
               {{ statusLabel(order.status) }}
             </span>
             <router-link
               :to="`/orders/${order.order_no}`"
-              class="rounded-lg border theme-btn-secondary px-4 py-2 text-sm font-medium"
+              class="border-2 border-[var(--ui-border)] bg-transparent px-6 py-3 text-sm font-black uppercase tracking-widest text-[var(--ui-text-primary)] hover:border-[var(--ui-accent)] hover:text-[var(--ui-accent)] transition-colors"
             >
               {{ t('orders.viewDetails') }}
             </router-link>
             <router-link
               v-if="order.status === 'pending_payment'"
               :to="`/pay?order_no=${order.order_no}`"
-              class="rounded-lg theme-btn-primary px-4 py-2 text-sm font-bold transition-colors"
+              class="border-2 border-[var(--ui-accent)] bg-[var(--ui-accent)] px-6 py-3 text-sm font-black uppercase tracking-widest text-[var(--ui-text-on-accent)] hover:bg-transparent hover:text-[var(--ui-accent)] transition-colors"
             >
               {{ t('orders.payNow') }}
             </router-link>
@@ -158,20 +158,20 @@
       </div>
     </div>
 
-    <div v-if="pagination.total_page > 1" class="mt-8 flex flex-wrap items-center justify-center gap-3">
+    <div v-if="pagination.total_page > 1" class="mt-12 flex flex-wrap items-center justify-center gap-4">
       <button
         :disabled="pagination.page <= 1"
-        class="rounded-lg border theme-btn-secondary px-4 py-2 text-sm font-medium disabled:cursor-not-allowed disabled:opacity-40"
+        class="border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] px-6 py-3 text-sm font-black uppercase tracking-widest text-[var(--ui-text-primary)] hover:border-[var(--ui-accent)] hover:text-[var(--ui-accent)] transition-colors disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-[var(--ui-border)] disabled:hover:text-[var(--ui-text-primary)]"
         @click="changePage(pagination.page - 1)"
       >
         {{ t('orders.prevPage') }}
       </button>
-      <span class="rounded-full border theme-pill-neutral px-4 py-2 text-sm">
+      <span class="border-2 border-[var(--ui-border)] bg-[var(--ui-bg-soft)] px-6 py-3 text-sm font-black uppercase tracking-widest font-mono">
         {{ t('orders.pageInfo', { page: pagination.page, total: pagination.total_page }) }}
       </span>
       <button
         :disabled="pagination.page >= pagination.total_page"
-        class="rounded-lg border theme-btn-secondary px-4 py-2 text-sm font-medium disabled:cursor-not-allowed disabled:opacity-40"
+        class="border-2 border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] px-6 py-3 text-sm font-black uppercase tracking-widest text-[var(--ui-text-primary)] hover:border-[var(--ui-accent)] hover:text-[var(--ui-accent)] transition-colors disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-[var(--ui-border)] disabled:hover:text-[var(--ui-text-primary)]"
         @click="changePage(pagination.page + 1)"
       >
         {{ t('orders.nextPage') }}

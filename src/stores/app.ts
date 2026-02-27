@@ -5,7 +5,11 @@ import { applyCustomScripts } from '../utils/customScripts'
 import { useHead } from '@unhead/vue'
 
 export const useAppStore = defineStore('app', () => {
-    const locale = ref(localStorage.getItem('locale') || 'zh-CN')
+    const normalizeLocale = (value: string | null | undefined) => {
+        return value === 'zh-CN' || value === 'zh-TW' || value === 'en-US' ? value : 'zh-CN'
+    }
+
+    const locale = ref(normalizeLocale(localStorage.getItem('locale')))
     const config = ref<any>(null)
     const loading = ref(false)
     const seoVersion = ref(0)
@@ -14,16 +18,16 @@ export const useAppStore = defineStore('app', () => {
 
     const hardcodedSeoDefaults: Record<'zh-CN' | 'zh-TW' | 'en-US', SeoDefaults> = {
         'zh-CN': {
-            title: '米米小卖部 | 小初高到大学考研资料与软件账号自动发卡平台',
-            keywords: '米米小卖部,自动发卡网,学习资料发卡平台,小学初中高中复习资料,大学考研备考资料,实用软件下载,账号购买,24小时自动发货,虚拟资源发卡,网课资料',
-            description: '米米小卖部是专业的虚拟资源自动发卡平台，覆盖小学至考研全学段学习资料，并提供实用软件与账号服务。支持 24 小时自动发货，流程安全便捷。',
-            siteName: '米米小卖部',
+            title: '米米商城 | 小初高到大学考研资料与软件账号自动发卡平台',
+            keywords: '米米商城,自动发卡网,学习资料发卡平台,小学初中高中复习资料,大学考研备考资料,实用软件下载,账号购买,24小时自动发货,虚拟资源发卡,网课资料',
+            description: '米米商城是专业的虚拟资源自动发卡平台，覆盖小学至考研全学段学习资料，并提供实用软件与账号服务。支持 24 小时自动发货，流程安全便捷。',
+            siteName: '米米商城',
         },
         'zh-TW': {
-            title: '米米小賣部 | 小初高到大學考研資料與軟體帳號自動發卡平台',
-            keywords: '米米小賣部,自動發卡網,學習資料發卡平台,國小國中高中複習資料,大學考研備考資料,實用軟體下載,帳號購買,24小時自動發貨,虛擬資源發卡,網課資料',
-            description: '米米小賣部是專業的虛擬資源自動發卡平台，覆蓋國小到考研全學段學習資料，並提供各類實用軟體與帳號服務。支援 24 小時自動發貨，流程安全便捷。',
-            siteName: '米米小賣部',
+            title: '米米商城 | 小初高到大學考研資料與軟體帳號自動發卡平台',
+            keywords: '米米商城,自動發卡網,學習資料發卡平台,國小國中高中複習資料,大學考研備考資料,實用軟體下載,帳號購買,24小時自動發貨,虛擬資源發卡,網課資料',
+            description: '米米商城是專業的虛擬資源自動發卡平台，覆蓋國小到考研全學段學習資料，並提供各類實用軟體與帳號服務。支援 24 小時自動發貨，流程安全便捷。',
+            siteName: '米米商城',
         },
         'en-US': {
             title: 'Mimi Store | Study Materials, Software & Accounts Auto Delivery Platform',
@@ -56,8 +60,9 @@ export const useAppStore = defineStore('app', () => {
 
     // 设置语言
     const setLocale = (newLocale: string) => {
-        locale.value = newLocale
-        localStorage.setItem('locale', newLocale)
+        const normalized = normalizeLocale(newLocale)
+        locale.value = normalized
+        localStorage.setItem('locale', normalized)
     }
 
     // 全局响应式 SEO 配置
