@@ -5,7 +5,7 @@ const messages = {
     'zh-CN': {
         common: {
             siteName: '米米商城',
-            loading: '加载中...',
+            loading: '加载中',
             error: '错误',
             success: '成功',
             confirm: '确认',
@@ -49,7 +49,7 @@ const messages = {
         home: {
             hero: {
                 title: '米米商城 · mmi.zone',
-                subtitle: '专业自动发卡平台｜全学段学习备考资料与数码资源，24 小时自动发货',
+                subtitle: '专业资料售卖平台｜全学段学习备考资料与数码资源，24 小时自动发货',
                 welcome: '欢迎来到 mmi.zone',
                 scrollToProducts: '下滑浏览商品',
                 cta: '浏览商品',
